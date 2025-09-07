@@ -29,7 +29,18 @@ def get_path_under_work_dir(*sub_paths: str) -> str:
     :param sub_paths: 子目录路径 可以传入多个表示多级
     :return: 拼接后的子目录路径
     """
-    return join_dir_path_with_mk(get_work_dir(), *sub_paths)
+    # 在 PyInstaller 打包环境中，对于配置文件需要特殊处理
+    if run_in_exe() and len(sub_paths) > 0 and sub_paths[0] == 'config':
+        # 首先检查是否在 _MEIPASS/resources 中
+        if hasattr(sys, '_MEIPASS'):
+            meipass_path = os.path.join(sys._MEIPASS, 'resources', *sub_paths)
+            if os.path.exists(meipass_path):
+                return meipass_path
+        # 如果在 _MEIPASS 中找不到，再检查工作目录
+        work_dir_path = join_dir_path_with_mk(get_work_dir(), *sub_paths)
+        return work_dir_path
+    else:
+        return join_dir_path_with_mk(get_work_dir(), *sub_paths)
 
 
 @lru_cache
