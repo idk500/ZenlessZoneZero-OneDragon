@@ -2,8 +2,8 @@ name: 更新贡献者信息
 
 on:
   schedule:
-    # 每天UTC时间02:00运行（北京时间10:00）
-    - cron: '0 2 * * *'
+    # 每两周运行一次（每月1日和15日 UTC 02:00，北京时间10:00）
+    - cron: '0 2 1,15 * *'
   workflow_dispatch:  # 允许手动触发
   push:
     branches:
@@ -76,7 +76,7 @@ jobs:
 
     - name: 上传贡献者信息（可选）
       if: steps.check_changes.outputs.changed == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: contributors-info
         path: contributors.yaml
