@@ -1,0 +1,22 @@
+'# 项目贡献者信息': ''
+'# 此文件包含项目的所有贡献者信息，用于滚动字幕显示': ''
+'# 更新时间': '2025-12-02 08:45:01'
+'# 项目核心贡献者（来自GitHub）': ''
+core_contributors: []
+'# 近期贡献者（最后10个commiter）': ''
+recent_contributors: []
+'# 文档组贡献者（来自GitHub文档仓库）': ''
+documentation_contributors: []
+'# 社区维护者（来自QQ频道）': ''
+community_maintainers: []
+'# 其他贡献者（手动添加）': ''
+other_contributors:
+- name: 其他贡献者1
+  role: 测试人员
+  contributions: 测试反馈
+- name: 其他贡献者2
+  role: 翻译人员
+  contributions: 多语言支持
+- name: 其他贡献者3
+  role: 设计人员
+  contributions: UI设计

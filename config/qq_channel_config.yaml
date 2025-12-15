@@ -1,0 +1,53 @@
+# QQ频道配置
+# 用于获取QQ频道作者信息
+
+# QQ频道API配置
+api:
+  # API基础URL
+  base_url: "https://api.qq-channel.com"
+  # 作者信息端点
+  authors_endpoint: "/authors"
+  # 超时时间（秒）
+  timeout: 30
+  # 重试次数
+  max_retries: 3
+
+# 作者信息字段映射
+# 用于将QQ频道API返回的字段映射到我们的数据结构
+field_mapping:
+  id: "id"
+  name: "name"
+  avatar: "avatar_url"
+  channel_url: "channel_url"
+  role: "contribution"
+  join_date: "join_date"
+  description: "description"
+
+# 默认作者信息（当API不可用时使用）
+default_authors:
+  - id: "qq_author_1"
+    name: "QQ频道贡献者1"
+    avatar_url: "https://example.com/avatar1.png"
+    channel_url: "https://qchannel.qq.com/example1"
+    contribution: "内容创作"
+    description: "QQ频道内容创作者"
+  - id: "qq_author_2"
+    name: "QQ频道贡献者2"
+    avatar_url: "https://example.com/avatar2.png"
+    channel_url: "https://qchannel.qq.com/example2"
+    contribution: "技术支持"
+    description: "QQ频道技术支持"
+
+# 缓存配置
+cache:
+  # 缓存有效期（小时）
+  ttl: 24
+  # 缓存文件路径
+  file: "cache/qq_channel_authors.json"
+
+# 错误处理
+error_handling:
+  # API失败时是否使用默认数据
+  use_default_on_error: true
+  # 记录详细错误日志
+  log_detailed_errors: true
