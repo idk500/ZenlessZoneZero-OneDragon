@@ -112,36 +112,3 @@ jobs:
             body: body,
             labels: ['bug', 'automation']
           });
-
-  # 可选：创建PR到主分支（如果从其他分支运行）
-  create-pr:
-    needs: update-contributors
-    runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' && needs.update-contributors.result == 'success'
-    
-    steps:
-    - name: 创建拉取请求
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 自动更新贡献者信息
-        title: '自动更新贡献者信息'
-        body: |
-          ## 自动更新贡献者信息
-          
-          此PR由GitHub Action自动创建，包含最新的贡献者信息更新。
-          
-          ### 更新内容
-          - 从GitHub仓库获取最新贡献者信息
-          - 更新QQ频道作者信息
-          - 更新时间戳
-          
-          ### 检查清单
-          - [ ] 贡献者信息正确
-          - [ ] 文件格式正确
-          - [ ] 无冲突
-        branch: ${{ github.ref }}
-        base: main
-        labels: |
-          automation
-          contributors
