@@ -16,7 +16,13 @@ if TYPE_CHECKING:
 class RiduWeeklyAppFactory(ApplicationFactory):
 
     def __init__(self, ctx: ZContext):
-        ApplicationFactory.__init__(self, ridu_weekly_const)
+        ApplicationFactory.__init__(
+            self,
+            app_id=ridu_weekly_const.APP_ID,
+            app_name=ridu_weekly_const.APP_NAME,
+            need_notify=ridu_weekly_const.NEED_NOTIFY,
+            default_group=ridu_weekly_const.DEFAULT_GROUP,
+        )
         self.ctx: ZContext = ctx
 
     def create_application(self, instance_idx: int, group_id: str) -> Application:

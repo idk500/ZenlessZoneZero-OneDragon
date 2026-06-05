@@ -1,4 +1,4 @@
-APP_ID = "suibian_temple"
-APP_NAME = "随便观"
+APP_ID="suibian_temple"
+APP_NAME="随便观"
+NEED_NOTIFY=True
 DEFAULT_GROUP = True
-NEED_NOTIFY = True

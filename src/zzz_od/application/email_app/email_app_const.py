@@ -1,4 +1,4 @@
-APP_ID = "email"
-APP_NAME = "邮件"
+APP_ID="email"
+APP_NAME="邮件"
+NEED_NOTIFY=True
 DEFAULT_GROUP = True
-NEED_NOTIFY = True

@@ -4,10 +4,8 @@ from typing import TYPE_CHECKING
 
 from one_dragon.base.operation.application.application_factory import ApplicationFactory
 from one_dragon.base.operation.application_base import Application
+from zzz_od.application.game_config_checker import mouse_sensitivity_checker_const
 from zzz_od.application.game_config_checker.mouse_sensitivity_checker import (
-    mouse_sensitivity_checker_const,
-)
-from zzz_od.application.game_config_checker.mouse_sensitivity_checker.mouse_sensitivity_checker import (
     MouseSensitivityChecker,
 )
 
@@ -18,7 +16,12 @@ if TYPE_CHECKING:
 class MouseSensitivityCheckerFactory(ApplicationFactory):
 
     def __init__(self, ctx: ZContext):
-        ApplicationFactory.__init__(self, mouse_sensitivity_checker_const)
+        ApplicationFactory.__init__(
+            self,
+            app_id=mouse_sensitivity_checker_const.APP_ID,
+            app_name=mouse_sensitivity_checker_const.APP_NAME,
+            default_group=mouse_sensitivity_checker_const.DEFAULT_GROUP,
+        )
         self.ctx: ZContext = ctx
 
     def create_application(self, instance_idx: int, group_id: str) -> Application:

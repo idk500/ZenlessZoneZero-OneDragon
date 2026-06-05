@@ -21,7 +21,13 @@ if TYPE_CHECKING:
 class ShiyuDefenseAppFactory(ApplicationFactory):
 
     def __init__(self, ctx: ZContext):
-        ApplicationFactory.__init__(self, shiyu_defense_const)
+        ApplicationFactory.__init__(
+            self,
+            app_id=shiyu_defense_const.APP_ID,
+            app_name=shiyu_defense_const.APP_NAME,
+            need_notify=shiyu_defense_const.NEED_NOTIFY,
+            default_group=shiyu_defense_const.DEFAULT_GROUP,
+        )
         self.ctx: ZContext = ctx
 
     def create_application(self, instance_idx: int, group_id: str) -> Application:

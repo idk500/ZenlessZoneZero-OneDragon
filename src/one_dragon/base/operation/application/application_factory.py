@@ -1,5 +1,4 @@
 from abc import ABC
-from types import ModuleType
 
 from one_dragon.base.operation.application.application_config import ApplicationConfig
 from one_dragon.base.operation.application_base import Application
@@ -19,39 +18,26 @@ class ApplicationFactory(ABC):
         - const 文件中可定义 `DEFAULT_GROUP = False` 表示不属于默认组
     """
 
-    # app_const 模块必须定义的字段
-    REQUIRED_CONST_FIELDS: tuple[str, ...] = (
-        'APP_ID',
-        'APP_NAME',
-        'DEFAULT_GROUP',
-        'NEED_NOTIFY',
-    )
-
-    # 可选的插件元数据字段（仅插件需要）
-    OPTIONAL_PLUGIN_FIELDS: tuple[str, ...] = (
-        'PLUGIN_AUTHOR',
-        'PLUGIN_HOMEPAGE',
-        'PLUGIN_VERSION',
-        'PLUGIN_DESCRIPTION',
-    )
-
-    def __init__(self, app_const: ModuleType):
+    def __init__(
+        self,
+        app_id: str,
+        app_name: str,
+        need_notify: bool = False,
+        default_group: bool = True,
+    ):
         """
         初始化应用工厂。
 
-        从 app_const 模块中自动解析以下字段:
-            - APP_ID: 应用唯一标识符
-            - APP_NAME: 显示用的应用名称
-            - DEFAULT_GROUP: 是否属于默认应用组
-            - NEED_NOTIFY: 应用是否需要通知
-
         Args:
-            app_const: 应用常量模块
+            app_id: 应用唯一标识符，用于区分不同的应用类型
+            app_name: 显示用的应用名称
+            need_notify: 应用是否需要通知
+            default_group: 是否属于默认应用组，默认为 True
         """
-        self.app_id: str = app_const.APP_ID
-        self.app_name: str = app_const.APP_NAME
-        self.default_group: bool = app_const.DEFAULT_GROUP
-        self.need_notify: bool = app_const.NEED_NOTIFY
+        self.app_id: str = app_id
+        self.app_name: str = app_name
+        self.need_notify: bool = need_notify
+        self.default_group: bool = default_group
         self._config_cache: dict[str, ApplicationConfig] = {}
         self._run_record_cache: dict[str, AppRunRecord] = {}
 
