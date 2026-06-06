@@ -34,17 +34,25 @@ class ApplicationFactoryManager:
     负责扫描、加载和刷新应用工厂，提供插件式的应用注册机制。
     """
 
-    def __init__(self, ctx: OneDragonContext, plugin_dirs: list[Path | str]):
+    def __init__(self, ctx: OneDragonContext, plugin_dirs: list[Path | str | tuple[Path, PluginSource]]):
         """初始化应用工厂管理器
 
         Args:
             ctx: OneDragon 上下文
-            plugin_dirs: 插件目录列表
+            plugin_dirs: 插件目录列表，支持 Path、str 或 (Path, PluginSource) 元组
         """
         self.ctx: OneDragonContext = ctx
-        self._plugin_dirs: list[Path] = [
-            Path(d) if isinstance(d, str) else d for d in plugin_dirs
-        ]
+        self._plugin_dirs: list[Path] = []
+        self._plugin_sources: dict[Path, PluginSource] = {}
+        for d in plugin_dirs:
+            if isinstance(d, tuple):
+                path, source = d
+                self._plugin_dirs.append(path)
+                self._plugin_sources[path] = source
+            elif isinstance(d, str):
+                self._plugin_dirs.append(Path(d))
+            else:
+                self._plugin_dirs.append(d)
         self._factory_module_suffix: str = "_factory"
         self._const_module_suffix: str = "_const"
         self._loaded_modules: set[str] = set()
@@ -128,13 +136,14 @@ class ApplicationFactoryManager:
         Returns:
             PluginSource: 插件来源类型
         """
-        # 检查是否在 src 目录下
+        # 优先使用构造时传入的 source 映射
+        if plugin_dir in self._plugin_sources:
+            return self._plugin_sources[plugin_dir]
+        # 兜底：检查是否在 src 目录下
         try:
             plugin_dir.parts.index('src')
-            # 在 src 目录下，是内置应用
             return PluginSource.BUILTIN
         except ValueError:
-            # 不在 src 目录下，是第三方插件
             return PluginSource.THIRD_PARTY
 
     def _scan_directory(
