@@ -177,6 +177,20 @@ class SettingPluginInterface(VerticalScrollInterface):
         )
         action_group.addSettingCard(self.help_card)
 
+        # 插件商城链接
+        action_group.addSettingCard(HelpCard(
+            url='https://zzz-optimizer.neko11.workers.dev/',
+            text='红豆站',
+            title='插件商城 — 红豆站',
+            content='浏览和下载第三方插件',
+        ))
+        action_group.addSettingCard(HelpCard(
+            url='https://zzz-opt-1.a-7-s.club/',
+            text='葱站',
+            title='插件商城 — 葱站',
+            content='浏览和下载第三方插件',
+        ))
+
         return action_group
 
     def _init_plugin_list_group(self) -> SettingCardGroup:
