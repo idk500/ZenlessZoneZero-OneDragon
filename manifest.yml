@@ -1,5 +1,6 @@
 # ZODE 分支维护清单 由维护周期自动更新
 # merged.sha 为合入时 pin 住的 PR head（后续作者 force-push 不影响已合内容）
+# 运行规则见仓库 docs/develop/zode/maintenance.md
 baseline:
   source: feat/background-update-check
   sha: cbc590613
@@ -11,8 +12,12 @@ merged:
     title: fix: 修复预备编队未选择时流程提前成功
     author: pumpkinperson996
     merged_at: "2026-10-20"
+  - number: 2550
+    sha: ef3b146e82d758d2b6014128363b7bc18e2ab8ab
+    title: 点击出战60s超时
+    author: JoshCai233
+    merged_at: "2026-10-20"
 queue:
-  - 2550
   - 2822
 parked: []
 excluded:
