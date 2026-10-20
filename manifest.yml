@@ -22,9 +22,12 @@ merged:
     title: "fix(engagement): 明确报告最高日常奖励已领取"
     author: Jason25417
     merged_at: "2026-10-21"
-queue:
   - number: 2857
-    note: 补榜评审通过（校验-重试闭环、重试上限 5）；合入后需 style 跟进修 import 排序
+    sha: 0a48f44849b0a6b4672567ec4dc3a03fd4c25732
+    title: "fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功"
+    author: devil233-ui
+    merged_at: "2026-10-21"
+queue:
   - number: 2811
     note: 补榜评审通过（维护者 4 行 vsc 调试配置，零用户影响，低优先）
 parked: []
