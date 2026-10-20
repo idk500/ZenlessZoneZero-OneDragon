@@ -1,0 +1,22 @@
+# ZODE 分支维护清单 由维护周期自动更新
+# merged.sha 为合入时 pin 住的 PR head（后续作者 force-push 不影响已合内容）
+baseline:
+  source: feat/background-update-check
+  sha: cbc590613
+  merged_at: "2026-10-20"
+  note: 增强分支（插件中心/静默更新/生涯统计）接入最新 main，7 文件冲突手工解决
+merged:
+  - number: 2658
+    sha: a69aef0466fdfaf2531e3b33f33906c197415d73
+    title: fix: 修复预备编队未选择时流程提前成功
+    author: pumpkinperson996
+    merged_at: "2026-10-20"
+queue:
+  - 2550
+  - 2822
+parked: []
+excluded:
+  - number: 2097
+    reason: ZODE 自带改进版重建（含 find_src_dir 修复），不合原 PR
+  - number: 2302
+    reason: ZODE 自带改进版重建（生涯统计），不合原 PR
