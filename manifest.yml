@@ -9,19 +9,34 @@ baseline:
 merged:
   - number: 2658
     sha: a69aef0466fdfaf2531e3b33f33906c197415d73
-    title: fix: 修复预备编队未选择时流程提前成功
+    title: "fix: 修复预备编队未选择时流程提前成功"
     author: pumpkinperson996
     merged_at: "2026-10-20"
   - number: 2550
     sha: ef3b146e82d758d2b6014128363b7bc18e2ab8ab
-    title: 点击出战60s超时
+    title: "点击出战60s超时"
     author: JoshCai233
     merged_at: "2026-10-20"
+  - number: 2822
+    sha: 7f5c7feb9259431679dedfffa95a37604a362a2b
+    title: "fix(engagement): 明确报告最高日常奖励已领取"
+    author: Jason25417
+    merged_at: "2026-10-21"
 queue:
-  - 2822
+  - number: 2857
+    note: 补榜评审通过（校验-重试闭环、重试上限 5）；合入后需 style 跟进修 import 排序
+  - number: 2811
+    note: 补榜评审通过（维护者 4 行 vsc 调试配置，零用户影响，低优先）
 parked: []
 excluded:
   - number: 2097
     reason: ZODE 自带改进版重建（含 find_src_dir 修复），不合原 PR
   - number: 2302
     reason: ZODE 自带改进版重建（生涯统计），不合原 PR
+arbited:
+  - numbers: [2738, 2743]
+    subject: 迷失之地卡住判定与配队改进 vs 上游演进
+    issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
+    deadline: "2026-10-24"
+    status: 投票中
+    fallback: 无票/平票则先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
