@@ -27,9 +27,12 @@ merged:
     title: "fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功"
     author: devil233-ui
     merged_at: "2026-10-21"
-queue:
   - number: 2811
-    note: 补榜评审通过（维护者 4 行 vsc 调试配置，零用户影响，低优先）
+    sha: bc36a1c0814c14ec5602788a1fec0faf1be6f1c3
+    title: "chore: 修复vsc调试意外使用全局python配置"
+    author: ShadowLemoon
+    merged_at: "2026-10-21"
+queue: []
 parked: []
 candidates: []
 hygiene:
@@ -63,5 +66,5 @@ arbited:
     subject: 迷失之地卡住判定与配队改进 vs 上游演进
     issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
     deadline: "2026-10-24"
-    status: 投票中（2026-10-21 政策变更：持续等待直到有人应答，deadline 到点不自动 fallback，每周期复查）
+    status: 等待应答（2026-10-21 政策：持续等待直到有人应答，deadline 到点不自动 fallback；10-21 复查两方案均 0 票，继续挂起）
     fallback: 仅有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
