@@ -5,7 +5,7 @@ baseline:
   source: feat/background-update-check
   sha: cbc590613
   merged_at: "2026-10-20"
-  note: 增强分支（插件中心/静默更新/生涯统计）接入最新 main，7 文件冲突手工解决
+  note: 增强分支（插件中心/静默更新/生涯统计）接入最新 main，7 文件冲突手工解决；后续新提交每周期自动带入
 merged:
   - number: 2658
     sha: a69aef0466fdfaf2531e3b33f33906c197415d73
@@ -33,8 +33,8 @@ merged:
     author: ShadowLemoon
     merged_at: "2026-10-21"
 queue:
-  - number: 2738
-    note: 仲裁复核后转 Class 1（与官方#2735 仅相邻行冲突、正交机制，双方保留即可，作者已本地联测）；合入后需照常校验，若与 #2735 有语义疑点回退并回仲裁帖
+  - number: 2686
+    note: 补榜评审通过（env 文件下载多源回退，与 #2638 资源域并行不重叠；离线校验过、对 ZODE 无冲突）
 parked: []
 candidates: []
 author_stats:
@@ -76,5 +76,5 @@ arbited:
   - numbers: [2743]
     subject: 当期 UP 自动配队 vs 上游 #2599/#2788 选队实现（choose_predefined_team 编队翻页逻辑真实重叠）
     issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
-    status: 等待应答（持续等待政策：无票不关帖不 fallback，每周期复查；2026-10-22 复查 0 票。2738 已移出转 resolved）
+    status: 等待应答（持续等待政策：无票不关帖不 fallback，每周期复查；2026-10-22 本周期复查时 GitHub 连接中断，顺延至下周期）
     fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
