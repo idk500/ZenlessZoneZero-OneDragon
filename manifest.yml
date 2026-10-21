@@ -31,9 +31,7 @@ queue:
   - number: 2811
     note: 补榜评审通过（维护者 4 行 vsc 调试配置，零用户影响，低优先）
 parked: []
-candidates:
-  - branch: feature/update-contributors
-    note: 自动更新贡献者信息（脚本+Action 两周一次，2025-12，+1723 行）；对 ZODE 无冲突，是否合入待用户拍板
+candidates: []
 hygiene:
   updated_at: "2026-10-21"
   policy: 见 docs/develop/zode/maintenance.md「fork 分支卫生」
@@ -50,8 +48,11 @@ hygiene:
     - feat/docs-agents-recruiting-skill
     - feat/app-store-entry
     - refactor/theme-color-extraction
+    - feature/update-contributors
   archive_tag_prefix: archive/idk500/
-  kept: [feature/update-contributors]
+  kept: []
+  notes:
+    - "feature/update-contributors: 用户 2026-10-21 拍板丢弃（bot 直推提交与 ZODE 单一写入方模型冲突 + 半成品：typo/双份冗余/混入无关文件），tag archive/idk500/feature/update-contributors 存证"
 excluded:
   - number: 2097
     reason: ZODE 自带改进版重建（含 find_src_dir 修复），不合原 PR
@@ -62,5 +63,5 @@ arbited:
     subject: 迷失之地卡住判定与配队改进 vs 上游演进
     issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
     deadline: "2026-10-24"
-    status: 投票中
-    fallback: 无票/平票则先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
+    status: 投票中（2026-10-21 政策变更：持续等待直到有人应答，deadline 到点不自动 fallback，每周期复查）
+    fallback: 仅有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
