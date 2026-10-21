@@ -32,9 +32,20 @@ merged:
     title: "chore: 修复vsc调试意外使用全局python配置"
     author: ShadowLemoon
     merged_at: "2026-10-21"
-queue: []
+queue:
+  - number: 2738
+    note: 仲裁复核后转 Class 1（与官方#2735 仅相邻行冲突、正交机制，双方保留即可，作者已本地联测）；合入后需照常校验，若与 #2735 有语义疑点回退并回仲裁帖
 parked: []
 candidates: []
+author_stats:
+  note: 内部集成成本记录，用于同域冲突时的队列优先级 tiebreaker；只记事实不做人身评价，不进公开规则文档
+  JoshCai233: 集成成本低（小步精准型：#2550 仅 2 行，无冲突）
+  pumpkinperson996: 集成成本中偏高（大改写型：#2738 重构 315 行、#2743 改动 687 行；但质量高且主动在官方 PR 标注与 #2735 的关系，本次因此快速解封）
+  tiebreaker_policy: 同域冲突且无法两全时，优先采纳集成成本低的一方的方案；大改写型作者若主动 rebase 适配上游，优先采用其新版本
+resolved:
+  - numbers: [2738]
+    resolved_at: "2026-10-22"
+    how: 作者在官方 PR 说明与 #2735 独立（入口层交互被抢 vs 纯走位卡住），本会话复核属实（lost_void_run_level.py 仅 1 冲突块、双方保留即解）；移出仲裁转 Class 1 入队
 hygiene:
   updated_at: "2026-10-21"
   policy: 见 docs/develop/zode/maintenance.md「fork 分支卫生」
@@ -62,9 +73,8 @@ excluded:
   - number: 2302
     reason: ZODE 自带改进版重建（生涯统计），不合原 PR
 arbited:
-  - numbers: [2738, 2743]
-    subject: 迷失之地卡住判定与配队改进 vs 上游演进
+  - numbers: [2743]
+    subject: 当期 UP 自动配队 vs 上游 #2599/#2788 选队实现（choose_predefined_team 编队翻页逻辑真实重叠）
     issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
-    deadline: "2026-10-24"
-    status: 等待应答（2026-10-21 政策：持续等待直到有人应答，deadline 到点不自动 fallback；10-21 复查两方案均 0 票，继续挂起）
-    fallback: 仅有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
+    status: 等待应答（持续等待政策：无票不关帖不 fallback，每周期复查；2026-10-22 复查 0 票。2738 已移出转 resolved）
+    fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
