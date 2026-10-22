@@ -32,11 +32,17 @@ merged:
     title: "chore: 修复vsc调试意外使用全局python配置"
     author: ShadowLemoon
     merged_at: "2026-10-21"
-queue:
   - number: 2686
-    note: 补榜评审通过（env 文件下载多源回退，与 #2638 资源域并行不重叠；离线校验过、对 ZODE 无冲突）
+    sha: d3b3657912425b73f209ee06f4b73eb169ec76aa
+    title: "feat: 环境文件下载改为多源候选回退，成功源持久化"
+    author: luoyrair
+    merged_at: "2026-10-23"
+queue: []
 parked: []
-candidates: []
+candidates:
+  - branch: feat/custom-repository-url
+    author: Roy（维护者本人）
+    note: 自定义代码源地址（+29 行，2026-10-22，对 ZODE 无冲突）；语义服务分发通道（用户可指任意镜像 URL），是否合入待维护者拍板
 author_stats:
   note: 内部集成成本记录，用于同域冲突时的队列优先级 tiebreaker；只记事实不做人身评价，不进公开规则文档
   JoshCai233: 集成成本低（小步精准型：#2550 仅 2 行，无冲突）
