@@ -1,86 +1,98 @@
 # ZODE 分支维护清单 由维护周期自动更新
-# merged.sha 为合入时 pin 住的 PR head（后续作者 force-push 不影响已合内容）
 # 运行规则见仓库 docs/develop/zode/maintenance.md
 baseline:
   source: feat/background-update-check
   sha: cbc590613
-  merged_at: "2026-10-20"
+  merged_at: '2026-10-20'
   note: 增强分支（插件中心/静默更新/生涯统计）接入最新 main，7 文件冲突手工解决；后续新提交每周期自动带入
 merged:
-  - number: 2658
-    sha: a69aef0466fdfaf2531e3b33f33906c197415d73
-    title: "fix: 修复预备编队未选择时流程提前成功"
-    author: pumpkinperson996
-    merged_at: "2026-10-20"
-  - number: 2550
-    sha: ef3b146e82d758d2b6014128363b7bc18e2ab8ab
-    title: "点击出战60s超时"
-    author: JoshCai233
-    merged_at: "2026-10-20"
-  - number: 2822
-    sha: 7f5c7feb9259431679dedfffa95a37604a362a2b
-    title: "fix(engagement): 明确报告最高日常奖励已领取"
-    author: Jason25417
-    merged_at: "2026-10-21"
-  - number: 2857
-    sha: 0a48f44849b0a6b4672567ec4dc3a03fd4c25732
-    title: "fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功"
-    author: devil233-ui
-    merged_at: "2026-10-21"
-  - number: 2811
-    sha: bc36a1c0814c14ec5602788a1fec0faf1be6f1c3
-    title: "chore: 修复vsc调试意外使用全局python配置"
-    author: ShadowLemoon
-    merged_at: "2026-10-21"
-  - number: 2686
-    sha: d3b3657912425b73f209ee06f4b73eb169ec76aa
-    title: "feat: 环境文件下载改为多源候选回退，成功源持久化"
-    author: luoyrair
-    merged_at: "2026-10-23"
+- number: 2550
+  sha: ef3b146e82d758d2b6014128363b7bc18e2ab8ab
+  title: 点击出战60s超时
+  author: JoshCai233
+  merged_at: '2026-10-20'
+- number: 2658
+  sha: a69aef0466fdfaf2531e3b33f33906c197415d73
+  title: 'fix: 修复预备编队未选择时流程提前成功'
+  author: pumpkinperson996
+  merged_at: '2026-10-20'
+- number: 2686
+  sha: aac0fb8d1
+  title: 'feat: 环境文件下载改为多源候选回退，成功源持久化'
+  author: luoyrair
+  merged_at: '2026-10-22'
+- number: 2738
+  sha: 52cff03f9
+  title: 'fix(lost_void): 重构寻路卡住判定与脱困策略'
+  author: pumpkinperson996
+  merged_at: '2026-10-22'
+- number: 2811
+  sha: bc36a1c0814c14ec5602788a1fec0faf1be6f1c3
+  title: 'chore: 修复vsc调试意外使用全局python配置'
+  author: ShadowLemoon
+  merged_at: '2026-10-21'
+- number: 2822
+  sha: 7f5c7feb9259431679dedfffa95a37604a362a2b
+  title: 'fix(engagement): 明确报告最高日常奖励已领取'
+  author: Jason25417
+  merged_at: '2026-10-21'
+- number: 2857
+  sha: 0a48f44849b0a6b4672567ec4dc3a03fd4c25732
+  title: 'fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功'
+  author: devil233-ui
+  merged_at: '2026-10-21'
 queue: []
-parked: []
-candidates:
-  - branch: feat/custom-repository-url
-    author: Roy（维护者本人）
-    note: 自定义代码源地址（+29 行，2026-10-22，对 ZODE 无冲突）；语义服务分发通道（用户可指任意镜像 URL），是否合入待维护者拍板
+parked:
+- number: 2685
+  reason: '维护者（idk500）评审意见未处理：_extract_gh_proxy 靠 URL 后缀反推代理会误写线路，建议候选生成时直接携带代理信息；作者未响应。且与已合入的
+    #2686 同域冲突（git_service 等 3 文件），调和等于替作者做架构决策，按不静默修复政策等待作者更新'
+candidates: []
 author_stats:
   note: 内部集成成本记录，用于同域冲突时的队列优先级 tiebreaker；只记事实不做人身评价，不进公开规则文档
   JoshCai233: 集成成本低（小步精准型：#2550 仅 2 行，无冲突）
-  pumpkinperson996: 集成成本中偏高（大改写型：#2738 重构 315 行、#2743 改动 687 行；但质量高且主动在官方 PR 标注与 #2735 的关系，本次因此快速解封）
+  pumpkinperson996: 集成成本中偏高（大改写型：#2738 重构 315 行、#2743 改动 687 行；但质量高且主动在官方 PR 标注与
   tiebreaker_policy: 同域冲突且无法两全时，优先采纳集成成本低的一方的方案；大改写型作者若主动 rebase 适配上游，优先采用其新版本
 resolved:
-  - numbers: [2738]
-    resolved_at: "2026-10-22"
-    how: 作者在官方 PR 说明与 #2735 独立（入口层交互被抢 vs 纯走位卡住），本会话复核属实（lost_void_run_level.py 仅 1 冲突块、双方保留即解）；移出仲裁转 Class 1 入队
+- numbers:
+  - 2738
+  resolved_at: '2026-10-22'
+  how: 作者在官方 PR 说明与
+- resolved_at: '2026-10-24'
+  how: '同步 #2097 插件管理：2 个 add/add 冲突经函数级对照（我方 494/656 行 vs 上游 937/956 行，我方仅 _validate_zip_structure/_get_plugin_dir_name
+    且上游有更强等价实现），整体采用官方实现，我方插件中心退役；导航「插件中心」回退「应用运行」待官方 #2895 合并后随上游更新'
 hygiene:
-  updated_at: "2026-10-21"
+  updated_at: '2026-10-21'
   policy: 见 docs/develop/zode/maintenance.md「fork 分支卫生」
-  deleted_absorbed: [github_minemain, minemain]
+  deleted_absorbed:
+  - github_minemain
+  - minemain
   deleted_archived:
-    - ZenlessZoneZeroOneDragonEnhance
-    - ZenlessZoneZeroOneDragonEnhanceOld
-    - feat/career-stats-bar
-    - feat/inventory-scan
-    - pr-career-test
-    - acc
-    - channel
-    - feat/add-agents-md
-    - feat/docs-agents-recruiting-skill
-    - feat/app-store-entry
-    - refactor/theme-color-extraction
-    - feature/update-contributors
+  - ZenlessZoneZeroOneDragonEnhance
+  - ZenlessZoneZeroOneDragonEnhanceOld
+  - feat/career-stats-bar
+  - feat/inventory-scan
+  - pr-career-test
+  - acc
+  - channel
+  - feat/add-agents-md
+  - feat/docs-agents-recruiting-skill
+  - feat/app-store-entry
+  - refactor/theme-color-extraction
+  - feature/update-contributors
   archive_tag_prefix: archive/idk500/
   kept: []
   notes:
-    - "feature/update-contributors: 用户 2026-10-21 拍板丢弃（bot 直推提交与 ZODE 单一写入方模型冲突 + 半成品：typo/双份冗余/混入无关文件），tag archive/idk500/feature/update-contributors 存证"
+  - 'feature/update-contributors: 用户 2026-10-21 拍板丢弃（bot 直推提交与 ZODE 单一写入方模型冲突 + 半成品：typo/双份冗余/混入无关文件），tag
+    archive/idk500/feature/update-contributors 存证'
 excluded:
-  - number: 2097
-    reason: ZODE 自带改进版重建（含 find_src_dir 修复），不合原 PR
-  - number: 2302
-    reason: ZODE 自带改进版重建（生涯统计），不合原 PR
+- number: 2097
+  reason: ZODE 自带改进版重建（含 find_src_dir 修复），不合原 PR
+- number: 2302
+  reason: ZODE 自带改进版重建（生涯统计），不合原 PR
 arbited:
-  - numbers: [2743]
-    subject: 当期 UP 自动配队 vs 上游 #2599/#2788 选队实现（choose_predefined_team 编队翻页逻辑真实重叠）
-    issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
-    status: 等待应答（持续等待政策：无票不关帖不 fallback，每周期复查；2026-10-22 本周期复查时 GitHub 连接中断，顺延至下周期）
-    fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
+- numbers:
+  - 2743
+  subject: 当期 UP 自动配队 vs 上游
+  issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
+  status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
+  fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
