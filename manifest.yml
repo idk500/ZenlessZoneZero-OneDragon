@@ -39,11 +39,33 @@ merged:
   title: 'fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功'
   author: devil233-ui
   merged_at: '2026-10-21'
+- number: 2907
+  sha: a9ad70cc1f052f0001fcf400167723f4a999ca36
+  title: 'fix(choose-team): 预备编队读不到SELECT时先等待重读'
+  author: zephyr-bell
+  merged_at: '2026-10-25'
+  note: 补记——a9ad70cc 早前已在 zode 历史（此前周期合入未记录），本周期核验内容在库（round_wait），无需重复合入
+- number: 2821
+  sha: a6373fdecfe5d7991f4ce15ae7deabd302275375
+  title: 'fix(controller): guard foreground mouse input'
+  author: vb2250158
+  merged_at: '2026-10-25'
+- number: 2502
+  sha: 7f9078b49817446d6c4a1cdddd2ea8c72e59f57b
+  title: 'feat: 添加强制激活游戏窗口设置'
+  author: Usagi-wusaqi
+  merged_at: '2026-10-25'
 queue: []
 parked:
 - number: 2685
   reason: '维护者（idk500）评审意见未处理：_extract_gh_proxy 靠 URL 后缀反推代理会误写线路，建议候选生成时直接携带代理信息；作者未响应。且与已合入的
     #2686 同域冲突（git_service 等 3 文件），调和等于替作者做架构决策，按不静默修复政策等待作者更新'
+- number: 2388
+  reason: 'merge-tree 冲突 application_run_context.py（content）；下周期细看是否 Class 1（对齐上游等价实现）'
+- number: 2890
+  reason: '作者要求先合并测试仓 zzz-od-test#86 再合主仓；等测试仓进度'
+- number: 2837
+  reason: '评审通过质量好但 14 文件战斗加载重构，单独周期合入便于回归归因'
 candidates: []
 author_stats:
   note: 内部集成成本记录，用于同域冲突时的队列优先级 tiebreaker；只记事实不做人身评价，不进公开规则文档
