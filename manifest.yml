@@ -1,5 +1,3 @@
-# ZODE 分支维护清单 由维护周期自动更新
-# 运行规则见仓库 docs/develop/zode/maintenance.md
 baseline:
   source: feat/background-update-check
   sha: cbc590613
@@ -96,3 +94,7 @@ arbited:
   issue: https://github.com/idk500/ZenlessZoneZero-OneDragon/issues/2
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
+last_cycle:
+  date: '2026-10-24'
+  note: 周期9：上游无新提交、增强无增量、无合入（送测前稳定优先）；2685/2834 维持停车（作者/维护者无响应）；仲裁 issues/2 仍无应答继续挂起；身份清洗后首个周期（新身份
+    Roy <mr.fc@qq.com>）
