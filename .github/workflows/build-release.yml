@@ -209,10 +209,11 @@ jobs:
       - version
       - build
       - sign
+    # ZODE fork 无 SignPath 签名凭据（sign job 仅官方组织运行）：
+    # fork 发布无签名产物，打包脚本对缺失的 signed 目录会自动使用未签名版本
     if: ${{ always() &&
             needs.build.result == 'success' &&
-            ((github.event_name == 'workflow_dispatch' && inputs.create_release == true) || startsWith(github.ref, 'refs/tags/')) &&
-            (needs.sign.result == 'success')
+            ((github.event_name == 'workflow_dispatch' && inputs.create_release == true) || startsWith(github.ref, 'refs/tags/'))
         }}
     steps:
     - name: Checkout code
