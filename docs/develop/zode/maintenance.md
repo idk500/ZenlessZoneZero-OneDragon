@@ -112,3 +112,45 @@ git config user.name   # 必须输出 Roy
 git config user.email  # 必须输出 mr.fc@qq.com
 ```
 不匹配则先 `git config --global user.name Roy && git config --global user.email mr.fc@qq.com` 再操作；维护会话提交前额外对本轮 diff 做 `grep -i <受保护关键词>` 兜底（关键词见维护记忆，不入任何仓库）。
+
+## 分层执行制度（SOP 分级，2026-10-25 定）
+
+维护工作按判断强度分三级，目的是让低成本模型承担日常，昂贵推理只花在例外上：
+
+### L1 机械执行（廉价模型可独立完成，禁止自由发挥）
+
+按本清单逐条执行，**只做清单内动作，遇到任何清单外情况即升级 L3 并停止**：
+
+```text
+1. worktree add /tmp/zode-work ZODE（已存在则跳过）
+2. 删除 refs/remotes/idk500/*、refs/remotes/cnb/* 全部 tracking 引用，重新显式 refspec fetch，
+   fetch 后核对引用值（rev-parse 输出）才可继续
+3. 上游 main：优先 fetch origin；失败改拉 https://cnb.cool/OneDragon-Anything/ZenlessZoneZero-OneDragon.git
+4. 上游有新提交：git merge --no-ff <上游tip> -m "feat: 同步官方 main 至 <短id>"
+   - 无冲突 → 继续 5
+   - 有冲突 → 停止，升级 L3（不得自行解冲突）
+5. 校验：触碰的 .py 逐个 py_compile（通过即可，存量 lint 不阻塞）
+6. 推送：先 fetch 对应远端确认无并行推送，再推 CNB 与 GitHub（ZODE、mirror）
+7. zode-meta：在最新远端版本上追加 last_cycle（当天日期+一句状态）与 traffic 快照，双推
+8. 桥接：读 inbox/ 新文件；周期报告写 outbox/cycle-report-<日期>.md
+9. 常规观察（各一行结论）：仲裁 issues/2 票况 / traffic 数 / 主仓 #2892、#2895、#2904 状态 / fork 分支清单
+```
+
+L1 的全部输出 = 周期报告。报告模板固定，不写分析性长文。
+
+### L2 例行判断（需一定经验，可由强模型或人复核后执行）
+
+- inbox 测试结果的逐项归因（bug 定位、复现建议、分级）
+- PR 补榜评审（评审前置读评论 → 预检 → 一行结论）
+- Class 1 冲突解法（上游等价实现采纳、import 修补——解完必须 git diff 自查并在报告列出改动点）
+- 插件 registry 动态、跨仓联动判断
+
+### L3 升级停止线（出现即停，写明现状等维护者/主会话）
+
+- 任何 merge 冲突、任何推送被拒（含 non-fast-forward）
+- tracking 引用与 ls-remote 不一致（幻影）
+- 隐私关键词 grep 命中
+- 桥接 inbox 出现无法归类的请求
+- 任何「顺手优化」的诱惑
+
+**纪律**：L1 中断后不做任何补救尝试（等待 L3），宁可空转一个周期。报告第一行标注本次执行级别（L1/L2/L3-升级）。
