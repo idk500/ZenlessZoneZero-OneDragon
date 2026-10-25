@@ -4,6 +4,11 @@ baseline:
   merged_at: '2026-10-20'
   note: 增强分支（插件中心/静默更新/生涯统计）接入最新 main，7 文件冲突手工解决；后续新提交每周期自动带入
 merged:
+- number: 2502
+  sha: 7f9078b49817446d6c4a1cdddd2ea8c72e59f57b
+  title: 'feat: 添加强制激活游戏窗口设置'
+  author: Usagi-wusaqi
+  merged_at: '2026-10-25'
 - number: 2550
   sha: ef3b146e82d758d2b6014128363b7bc18e2ab8ab
   title: 点击出战60s超时
@@ -29,6 +34,11 @@ merged:
   title: 'chore: 修复vsc调试意外使用全局python配置'
   author: ShadowLemoon
   merged_at: '2026-10-21'
+- number: 2821
+  sha: a6373fdecfe5d7991f4ce15ae7deabd302275375
+  title: 'fix(controller): guard foreground mouse input'
+  author: vb2250158
+  merged_at: '2026-10-25'
 - number: 2822
   sha: 7f5c7feb9259431679dedfffa95a37604a362a2b
   title: 'fix(engagement): 明确报告最高日常奖励已领取'
@@ -39,22 +49,17 @@ merged:
   title: 'fix(lost_void): 校验矩阵行动主战编队，避免选人没生效仍报成功'
   author: devil233-ui
   merged_at: '2026-10-21'
+- number: 2895
+  sha: 5749a183d
+  title: 'feat(gui): 导航「应用运行」改名「插件龙」'
+  author: idk500
+  merged_at: '2026-10-25'
 - number: 2907
   sha: a9ad70cc1f052f0001fcf400167723f4a999ca36
   title: 'fix(choose-team): 预备编队读不到SELECT时先等待重读'
   author: zephyr-bell
   merged_at: '2026-10-25'
   note: 补记——a9ad70cc 早前已在 zode 历史（此前周期合入未记录），本周期核验内容在库（round_wait），无需重复合入
-- number: 2821
-  sha: a6373fdecfe5d7991f4ce15ae7deabd302275375
-  title: 'fix(controller): guard foreground mouse input'
-  author: vb2250158
-  merged_at: '2026-10-25'
-- number: 2502
-  sha: 7f9078b49817446d6c4a1cdddd2ea8c72e59f57b
-  title: 'feat: 添加强制激活游戏窗口设置'
-  author: Usagi-wusaqi
-  merged_at: '2026-10-25'
 queue: []
 parked:
 - number: 2685
@@ -118,5 +123,5 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-25'
-  note: 周期11（cron 首跑）：上游无新提交（main=8fe22ef0c）、送测冻结无合入、双端 ZODE=8c2efd717 一致无并行冲突；仲裁
-    issues/2 仍无应答；inbox 空（Windows 未回写）；traffic 240/70 与昨日持平
+  note: '周期11补：用户拍板合入 #2895 插件龙改名（内容级合入，ZODE=63bc2b511，上游 PR 保持 OPEN 待官方决策）；桥接路径迁至
+    /Volumes/personal_folder/Codes/Z1D'
