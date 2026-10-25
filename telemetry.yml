@@ -282,12 +282,9 @@ snapshots:
         uniques: 0
   '2026-10-25':
     clones:
-      count: 240
-      uniques: 70
+      count: 326
+      uniques: 100
       clones:
-      - timestamp: '2026-10-10T00:00:00Z'
-        count: 1
-        uniques: 1
       - timestamp: '2026-10-11T00:00:00Z'
         count: 1
         uniques: 1
@@ -327,13 +324,13 @@ snapshots:
       - timestamp: '2026-10-23T00:00:00Z'
         count: 45
         uniques: 18
+      - timestamp: '2026-10-24T00:00:00Z'
+        count: 87
+        uniques: 33
     views:
-      count: 9
-      uniques: 9
+      count: 15
+      uniques: 15
       views:
-      - timestamp: '2026-10-10T00:00:00Z'
-        count: 0
-        uniques: 0
       - timestamp: '2026-10-11T00:00:00Z'
         count: 0
         uniques: 0
@@ -373,3 +370,6 @@ snapshots:
       - timestamp: '2026-10-23T00:00:00Z'
         count: 0
         uniques: 0
+      - timestamp: '2026-10-24T00:00:00Z'
+        count: 6
+        uniques: 6
