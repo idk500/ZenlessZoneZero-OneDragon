@@ -98,12 +98,14 @@ fork 上的分支分三类：发行通道（`main` / `mirror` / `zode`）、维�
 - `resolved`：Class 1 自动解决记录
 - `arbited`：Class 2 仲裁结论
 
-## 单一提交者制度（2026-10-25 定）
+## 单一提交者制度（2026-10-25 定，同日 23:10 修订）
 
-ZODE / mirror / zode-meta / 各发行分支**只允许一处写入**：Mac 维护会话（每日定时 + 用户触发的交互会话）。其他机器一律不直接推送这些分支。
+ZODE / mirror / zode-meta / 各发行分支**只允许一处写入**：Windows 维护机（`E:\ZODE`，每日定时 + 用户触发的交互会话）。2026-10-25 晚写入方从 Mac 会话移交本机，Mac 及其余机器一律不直接推送这些分支。
+
+移交理由：唯一测试环境在 Windows（GUI 与真实自动化只能在这里跑），写入方与测试环境分离会让「合入前必须实机验证」这条无法执行。
 
 **其他机器的改动提交通道（二选一）**：
-1. **桥接目录**（推荐）：改动说明 + git diff/patch 文件放入桥接 `inbox/`（`change-<主题>.md`），维护周期统一集成；
+1. **桥接目录**（推荐）：改动说明 + git diff/patch 文件放入桥接 `inbox/`（`change-<主题>.md`），维护周期统一集成；本机桥接根目录为 `E:\ZZZ-1D\zode-agent\bridge\`（`inbox/` 收件、`outbox/` 放周期报告）。
 2. **提案分支**：如需 git 原生流程，推到 `incoming/<主题>` 分支（仅此命名空间对外开放），维护周期 fetch 后审阅、择优合入，随后删除提案分支。
 
 **任何机器提交前的强制自检**（防身份泄漏，源头规则）：
@@ -122,7 +124,7 @@ git config user.email  # 必须输出 mr.fc@qq.com
 按本清单逐条执行，**只做清单内动作，遇到任何清单外情况即升级 L3 并停止**：
 
 ```text
-1. worktree add /tmp/zode-work ZODE（已存在则跳过）
+1. worktree add E:\ZODE-work zode（已存在则跳过）
 2. 删除 refs/remotes/idk500/*、refs/remotes/cnb/* 全部 tracking 引用，重新显式 refspec fetch，
    fetch 后核对引用值（rev-parse 输出）才可继续
 3. 上游 main：优先 fetch origin；失败改拉 https://cnb.cool/OneDragon-Anything/ZenlessZoneZero-OneDragon.git
@@ -130,9 +132,10 @@ git config user.email  # 必须输出 mr.fc@qq.com
    - 无冲突 → 继续 5
    - 有冲突 → 停止，升级 L3（不得自行解冲突）
 5. 校验：触碰的 .py 逐个 py_compile（通过即可，存量 lint 不阻塞）
-6. 推送：先 fetch 对应远端确认无并行推送，再推 CNB 与 GitHub（ZODE、mirror）
+6. 推送：先 fetch 对应远端确认无并行推送，再推 CNB 与 GitHub（**分支名一律小写 `zode`**、
+   `mirror`——客户端按 `refs/heads/zode` 精确大小写拉取，大小写不同等于该分支不存在）
 7. zode-meta：在最新远端版本上追加 last_cycle（当天日期+一句状态）与 traffic 快照，双推
-8. 桥接：读 inbox/ 新文件；周期报告写 outbox/cycle-report-<日期>.md
+8. 桥接：读 `E:\ZZZ-1D\zode-agent\bridge\inbox\` 新文件；周期报告写 `bridge\outbox\cycle-report-<日期>.md`
 9. 常规观察（各一行结论）：仲裁 issues/2 票况 / traffic 数 / 主仓 #2892、#2895、#2904 状态 / fork 分支清单
 ```
 
