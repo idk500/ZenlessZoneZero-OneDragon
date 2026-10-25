@@ -97,3 +97,18 @@ fork 上的分支分三类：发行通道（`main` / `mirror` / `zode`）、维�
 - `excluded`：排除项及理由
 - `resolved`：Class 1 自动解决记录
 - `arbited`：Class 2 仲裁结论
+
+## 单一提交者制度（2026-10-25 定）
+
+ZODE / mirror / zode-meta / 各发行分支**只允许一处写入**：Mac 维护会话（每日定时 + 用户触发的交互会话）。其他机器一律不直接推送这些分支。
+
+**其他机器的改动提交通道（二选一）**：
+1. **桥接目录**（推荐）：改动说明 + git diff/patch 文件放入桥接 `inbox/`（`change-<主题>.md`），维护周期统一集成；
+2. **提案分支**：如需 git 原生流程，推到 `incoming/<主题>` 分支（仅此命名空间对外开放），维护周期 fetch 后审阅、择优合入，随后删除提案分支。
+
+**任何机器提交前的强制自检**（防身份泄漏，源头规则）：
+```shell
+git config user.name   # 必须输出 Roy
+git config user.email  # 必须输出 mr.fc@qq.com
+```
+不匹配则先 `git config --global user.name Roy && git config --global user.email mr.fc@qq.com` 再操作；维护会话提交前额外对本轮 diff 做 `grep -i <受保护关键词>` 兜底（关键词见维护记忆，不入任何仓库）。
