@@ -128,3 +128,21 @@ last_cycle:
     双端 ff 至 1643782；补齐 fork 缺失的小写 zode 分支（此前 fork 只有大写 ZODE，客户端按 refs/heads/zode 精确拉取会失败）；maintenance.md
     修订：写入方 Mac→本机、分支名统一小写、桥接路径落地 E://ZZZ-1D//zode-agent//bridge；traffic 快照 14 天 clones
     326/100 uniques、views 15/15'
+handover:
+  effective: '2026-10-26'
+  from: Mac 维护会话
+  to: Windows 维护机（E://ZODE，用户 Roy 授权全权接管）
+  reason: Mac 侧额度耗尽（用户 2026-10-26 拍板：全部交给 PC）
+  scope:
+  - ZODE / mirror / zode-meta 全部写入
+  - 周期巡检（PC 已建每 6 小时定时任务）
+  - 送测与实机验证
+  mac_actions:
+  - 停止一切推送与周期巡检，不要再写 zode / mirror / zode-meta
+  - 不要再改 maintenance.md 的写入方条款；如需表达意见走桥接 inbox 或在本 fork 开 issue
+  - 手上有未推的本地提交，按 git diff 导出成 patch 放桥接 inbox，由 PC 集成
+  current_state:
+    zode: 855b5a54
+    mirror: '16437820'
+    zode_meta: 随本次提交更新
+    note: CNB 与 fork 双端一致；官仓 origin 暂停推送（见 maintenance.md 铁律 1）
