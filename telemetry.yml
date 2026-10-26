@@ -374,6 +374,8 @@ snapshots:
         count: 6
         uniques: 6
   '2026-10-26':
+    verified_at: '2026-10-26T21:45:00+08:00'
+    verified_note: 周期14（21:45）复查，GitHub 窗口仍停在 10-12~10-25，数值与周期13 逐字相同，未重复写入同日快照
     clones:
       count: 404
       uniques: 124
