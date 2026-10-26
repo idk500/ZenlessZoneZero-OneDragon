@@ -90,9 +90,9 @@ class UserStatsConfig(YamlConfig):
         self.update('one_dragon_count', new_value, save=False)
 
     def increment_one_dragon(self) -> None:
-        """递增一条龙运行计数"""
+        """递增一条龙运行计数，并立即落盘（避免进程异常退出时丢计数）"""
         with self._lock:
-            self.update('one_dragon_count', self.one_dragon_count + 1, save=False)
+            self.update('one_dragon_count', self.one_dragon_count + 1, save=True)
 
     # ---------- 各应用运行计数 ----------
 
@@ -105,11 +105,11 @@ class UserStatsConfig(YamlConfig):
         self.update('app_counts', new_value, save=False)
 
     def increment_app(self, app_id: str) -> None:
-        """线程安全地递增指定应用的运行计数"""
+        """线程安全地递增指定应用的运行计数，并立即落盘"""
         with self._lock:
-            counts = self.app_counts
+            counts = dict(self.app_counts)
             counts[app_id] = counts.get(app_id, 0) + 1
-            self.update('app_counts', counts, save=False)
+            self.update('app_counts', counts, save=True)
 
     def get_app_count(self, app_id: str) -> int:
         """获取指定应用的运行计数"""
