@@ -122,16 +122,16 @@ arbited:
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
-  date: '2026-10-26'
-  seq: 14
-  time: '21:45'
-  note: '周期14（21:45，L1 机械执行，定时任务第二轮）：上游 main 仍为 16437820，无新提交——已是 zode 855b5a54
-    的祖先（zode..upstream/main = 0），本轮无 merge，故无 py_compile 对象；CNB 与 fork 两端 zode 855b5a54 /
-    mirror 16437820 / zode-meta 3087064d 与本地逐一相符，无并行写入、无 force update；导入冒烟（20 秒阈值）
-    712 模块 0 失败 1 超时，唯一超时 zzz_od.win_exe.runtime_launcher 属打包守卫基线，上周期 15 秒阈值下的 6 个假超时
-    在 20 秒阈值下全部消失，证实是并发抢 CPU 而非回归；zode/mirror 三端 SHA 未变，双端 dry-run 全 up-to-date，
-    本周期无实际推送，唯一写入 = zode-meta 清单；traffic 与上周期逐字相同（clones 404/124、views 15/15），
-    GitHub 窗口尚未滚入 10-26，故不重复写同日快照'
+  date: '2026-10-27'
+  seq: 15
+  time: '03:50'
+  note: '周期15（03:50，L1 机械执行）：上游 main 仍为 16437820，已是 zode 祖先（zode..upstream/main = 0），
+    本轮无 merge；本轮实际写入 = 补推上一会话遗留的本地提交 774d3b7b（fix(app) ZApplication 透传
+    use_factory_run_record，10-27 00:06 产生、当时未推），zode d5c00a92 → 774d3b7b 双端 ff 推送成功；
+    mirror 两端均等于上游 tip 16437820，无动作；校验：774d3b7b 触碰的 zzz_application.py 编译通过，
+    导入冒烟（20 秒阈值）761 模块 0 失败 1 超时（仅 runtime_launcher 打包守卫基线）；推送前 ls-remote
+    复核两端均为 d5c00a92（无并行写入、无 force update）；traffic 窗口仍停在 10-12~10-25，clones 404/124、
+    views 15/15 与上两轮逐字相同，按既有口径只记 verified_at 不重复铺数据'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
@@ -146,7 +146,8 @@ handover:
   - 不要再改 maintenance.md 的写入方条款；如需表达意见走桥接 inbox 或在本 fork 开 issue
   - 手上有未推的本地提交，按 git diff 导出成 patch 放桥接 inbox，由 PC 集成
   current_state:
-    zode: 855b5a54
+    zode: 774d3b7b
     mirror: '16437820'
     zode_meta: 随本次提交更新
-    note: CNB 与 fork 双端一致；官仓 origin 暂停推送（见 maintenance.md 铁律 1）
+    note: CNB 与 fork 双端一致；官仓 origin 暂停推送（见 maintenance.md 铁律 1）；zode 含贝果计划（#2820）与
+      2026-10-26 深夜两处实机修复（运行计数立即落盘 1b67ce23、use_factory_run_record 透传 774d3b7b）
