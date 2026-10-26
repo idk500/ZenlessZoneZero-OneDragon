@@ -19,6 +19,7 @@ class ZApplication(Application):
                  need_check_game_win: bool = True,
                  op_to_enter_game: Operation | None = None,
                  run_record: AppRunRecord | None = None,
+                 use_factory_run_record: bool = True,
                  ):
         self.ctx: ZContext = ctx
         if op_to_enter_game is None:
@@ -34,6 +35,7 @@ class ZApplication(Application):
             need_check_game_win=need_check_game_win,
             op_to_enter_game=op_to_enter_game,
             run_record=run_record,
+            use_factory_run_record=use_factory_run_record,
         )
 
     def handle_resume(self) -> None:
