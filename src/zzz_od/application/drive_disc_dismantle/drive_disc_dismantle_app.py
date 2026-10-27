@@ -140,13 +140,18 @@ class DriveDiscDismantleApp(ZApplication):
     @node_from(from_name='点击拆解确认', success=False)  # 可能没有需要拆解的
     @node_from(from_name='检查可拆数量', status=STATUS_NO_DISC)
     @node_notify(when=NotifyTiming.CURRENT_SUCCESS)
-    @operation_node(name='返回驱动仓库')  # issue #2701
+    @operation_node(name='返回驱动仓库', node_max_retry_times=5)  # issue #2701
     def back_to_storage(self) -> OperationRoundResult:
         result = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '标题-驱动盘拆解')
-        if not result.is_success:
-            return result
-        return self.round_by_find_and_click_area(self.last_screenshot, '画面-通用', '返回',
-                                                 success_wait=1, retry_wait=1)
+        if result.is_success:
+            return self.round_by_find_and_click_area(self.last_screenshot, '画面-通用', '返回',
+                                                     success_wait=1, retry_wait=1)
+        # 无可拆盘跳过时快速选择弹窗可能仍打开 遮挡标题：确认弹窗开着则先点返回关掉
+        popup = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '按钮-快速选择-确认')
+        if popup.is_success:
+            return self.round_by_find_and_click_area(self.last_screenshot, '画面-通用', '返回',
+                                                     success_wait=1, retry_wait=1)
+        return self.round_retry(result.status, wait=1)
 
     @node_from(from_name='返回驱动仓库')
     @operation_node(name='返回大世界')
