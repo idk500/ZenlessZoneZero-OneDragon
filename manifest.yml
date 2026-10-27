@@ -123,15 +123,15 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-27'
-  seq: 16
-  time: '10:14'
-  note: '周期16（10:14，L1 机械执行）：上游 main 仍为 16437820（10-25 #2911），是 zode 的直接 merge-base
+  seq: 17
+  time: '16:16'
+  note: '周期17（16:16，L1 机械执行）：上游 main 仍为 16437820（10-25 #2911），是 zode 的直接 merge-base
     （zode..upstream/main = 0）→ 本轮无 merge、HEAD 未动，zode 相对上游独有 178 个提交；三端六点 SHA
-    逐字一致（zode 774d3b7b / mirror 16437820 / zode-meta 941a32b0，CNB 与 fork 同值），无并行写入、
+    逐字一致（zode 774d3b7b / mirror 16437820 / zode-meta 26c4acd4，CNB 与 fork 同值），无并行写入、
     无 force update；zode 与 mirror 四个推送目标 dry-run 全 Everything up-to-date，本轮实际写入仅 zode-meta
-    清单 + traffic 复查；校验：无 merge 故无 py_compile 对象，仍跑导入冒烟（20 秒阈值）761 模块 0 失败
-    1 超时（仅 zzz_od.win_exe.runtime_launcher 打包守卫）；traffic 窗口仍停在 10-12~10-25（10-26 未结算），
-    clones 404/124、views 15/15 与周期13/14/15 逐字相同，按既有口径只更新 verified_at 不重复铺数据'
+    清单 + traffic 快照；校验：无 merge 故无 py_compile 对象，仍跑导入冒烟（20 秒阈值）761 模块 0 失败
+    1 超时（仅 zzz_od.win_exe.runtime_launcher 打包守卫）；traffic 窗口首次滚入 10-26（10-13~10-26），
+    10-26 结算值 clones 19/12、views 2/2，累计 clones 417/131、views 14/14（10-12 已滚出窗口）'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话

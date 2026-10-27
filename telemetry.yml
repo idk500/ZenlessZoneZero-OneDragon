@@ -469,15 +469,12 @@ snapshots:
         count: 0
         uniques: 0
   '2026-10-27':
-    verified_at: '2026-10-27T10:14:00+08:00'
-    verified_note: 周期16（10:14）复查，GitHub 窗口仍停在 10-12~10-25（10-26 未结算），数值与周期13/14/15 逐字相同（clones 404/124、views 15/15），按既有口径只记复查时间，不重复铺数据
+    verified_at: '2026-10-27T16:16:00+08:00'
+    verified_note: 周期17（16:16）复查，GitHub 窗口首次滚入 10-26（2026-10-13~2026-10-26）；10-26 结算 clones 19/12、views 2/2，累计 clones 417/131、views 14/14（10-12 已滚出窗口导致 views 累计由 15 降至 14）
     clones:
-      count: 404
-      uniques: 124
+      count: 417
+      uniques: 131
       clones:
-      - timestamp: '2026-10-12T00:00:00Z'
-        count: 6
-        uniques: 2
       - timestamp: '2026-10-13T00:00:00Z'
         count: 2
         uniques: 2
@@ -517,13 +514,13 @@ snapshots:
       - timestamp: '2026-10-25T00:00:00Z'
         count: 79
         uniques: 30
+      - timestamp: '2026-10-26T00:00:00Z'
+        count: 19
+        uniques: 12
     views:
-      count: 15
-      uniques: 15
+      count: 14
+      uniques: 14
       views:
-      - timestamp: '2026-10-12T00:00:00Z'
-        count: 3
-        uniques: 3
       - timestamp: '2026-10-13T00:00:00Z'
         count: 2
         uniques: 2
@@ -563,3 +560,6 @@ snapshots:
       - timestamp: '2026-10-25T00:00:00Z'
         count: 0
         uniques: 0
+      - timestamp: '2026-10-26T00:00:00Z'
+        count: 2
+        uniques: 2
