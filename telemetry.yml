@@ -469,8 +469,8 @@ snapshots:
         count: 0
         uniques: 0
   '2026-10-27':
-    verified_at: '2026-10-27T16:16:00+08:00'
-    verified_note: 周期17（16:16）复查，GitHub 窗口首次滚入 10-26（2026-10-13~2026-10-26）；10-26 结算 clones 19/12、views 2/2，累计 clones 417/131、views 14/14（10-12 已滚出窗口导致 views 累计由 15 降至 14）
+    verified_at: '2026-10-27T22:26:00+08:00'
+    verified_note: 周期18（22:26）复查：窗口与数据与周期17 逐字相同（仍为 2026-10-13~2026-10-26，10-26 结算 clones 19/12、views 2/2，累计 clones 417/131、views 14/14）；10-27 当日 GitHub 尚未结算，故不新增数据行、不改历史日值
     clones:
       count: 417
       uniques: 131
