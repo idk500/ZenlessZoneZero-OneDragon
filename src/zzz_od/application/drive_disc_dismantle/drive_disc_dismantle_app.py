@@ -3,7 +3,6 @@ from one_dragon.base.operation.operation_edge import node_from
 from one_dragon.base.operation.operation_node import operation_node
 from one_dragon.base.operation.operation_notify import NotifyTiming, node_notify
 from one_dragon.base.operation.operation_round_result import OperationRoundResult
-from one_dragon.utils import cv2_utils
 from one_dragon.utils.log_utils import log
 from zzz_od.application.drive_disc_dismantle import drive_disc_dismantle_const
 from zzz_od.application.drive_disc_dismantle.drive_disc_dismantle_config import (
@@ -80,10 +79,12 @@ class DriveDiscDismantleApp(ZApplication):
         result = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
         if result.is_success:
             area = self.ctx.screen_loader.get_area('仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
-            part = cv2_utils.crop_image_only(self.last_screenshot, area.rect)
-            ocr_result = self.ctx.ocr.run_ocr_single_line(part)
+            # 用多行 OCR：single_line 会丢失行尾的橙色数字（2026-10-27 运行时验证）
+            ocr_map = self.ctx.ocr.crop_and_run_ocr(self.last_screenshot, area.rect)
+            ocr_result = ''.join(ocr_map.keys())
             digits = re.findall(r'\d+', ocr_result)
             if len(digits) == 0:
+                log.info('检查可拆数量 OCR 原文: %r', ocr_result)
                 return self.round_retry('未识别到符合条件数量', wait=1)
             if int(digits[-1]) == 0:
                 log.info('快速选择符合条件的驱动盘数量为 0 跳过拆解')
