@@ -146,11 +146,11 @@ class DriveDiscDismantleApp(ZApplication):
         if result.is_success:
             return self.round_by_find_and_click_area(self.last_screenshot, '画面-通用', '返回',
                                                      success_wait=1, retry_wait=1)
-        # 无可拆盘跳过时快速选择弹窗可能仍打开 遮挡标题：确认弹窗开着则先点返回关掉
+        # 无可拆盘跳过时快速选择弹窗可能仍打开 遮挡标题：点弹窗右上角 X 关闭
         popup = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '按钮-快速选择-确认')
         if popup.is_success:
-            return self.round_by_find_and_click_area(self.last_screenshot, '画面-通用', '返回',
-                                                     success_wait=1, retry_wait=1)
+            return self.round_by_click_area('仓库-驱动仓库-驱动盘拆解', '按钮-快速选择-关闭',
+                                            success_wait=1, retry_wait=1)
         return self.round_retry(result.status, wait=1)
 
     @node_from(from_name='返回驱动仓库')

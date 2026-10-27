@@ -2641,6 +2641,13 @@
     - 780
     text: 符合
     lcs_percent: 0.5
+  - area_name: 按钮-快速选择-关闭
+    area_type: none
+    pc_rect:
+    - 1255
+    - 262
+    - 1350
+    - 332
 - screen_id: email
   screen_name: 邮件
   app_id: email
