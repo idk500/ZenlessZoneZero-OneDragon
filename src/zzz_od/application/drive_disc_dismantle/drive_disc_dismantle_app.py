@@ -67,29 +67,36 @@ class DriveDiscDismantleApp(ZApplication):
         )
 
     @node_from(from_name='选择等级')
-    @operation_node(name='检查可拆数量', node_max_retry_times=3)
+    @operation_node(name='检查可拆数量', node_max_retry_times=5)
     def check_disc_count(self) -> OperationRoundResult:
         """
         2026-10-27 诊断：仓库全是 S 级盘时「A及以下」选中数为 0 属正常现象，
-        弹窗内「符合以上条件的驱动盘数量」为 0 时应跳过，而不是点灰置的拆解按钮报错。
+        且点击品质按钮后游戏会在约 1 秒内自动关闭快速选择弹窗。
+        - 弹窗仍打开：OCR「符合以上条件的驱动盘数量」，为 0 则跳过
+        - 弹窗已自动关闭（回到拆解主页面）：直接视为无可拆盘
         """
         import re
 
-        area = self.ctx.screen_loader.get_area('仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
-        part = cv2_utils.crop_image_only(self.last_screenshot, area.rect)
-        ocr_result = self.ctx.ocr.run_ocr_single_line(part)
-        digits = re.findall(r'\d+', ocr_result)
-        if len(digits) == 0:
-            # OCR 失败（弹窗动画中等）：重试几次后按旧流程继续，保持兼容
-            if self.node_retry_times < 2:
+        result = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
+        if result.is_success:
+            area = self.ctx.screen_loader.get_area('仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
+            part = cv2_utils.crop_image_only(self.last_screenshot, area.rect)
+            ocr_result = self.ctx.ocr.run_ocr_single_line(part)
+            digits = re.findall(r'\d+', ocr_result)
+            if len(digits) == 0:
                 return self.round_retry('未识别到符合条件数量', wait=1)
-            return self.round_success('未识别到数量 按原流程继续')
+            if int(digits[-1]) == 0:
+                log.info('快速选择符合条件的驱动盘数量为 0 跳过拆解')
+                return self.round_success(DriveDiscDismantleApp.STATUS_NO_DISC)
+            return self.round_success()
 
-        if int(digits[-1]) == 0:
-            log.info('快速选择符合条件的驱动盘数量为 0 跳过拆解')
+        # 弹窗已自动关闭：0 盘时游戏的行为
+        result2 = self.round_by_find_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '标题-驱动盘拆解')
+        if result2.is_success:
+            log.info('快速选择弹窗已自动关闭 视为无可拆盘')
             return self.round_success(DriveDiscDismantleApp.STATUS_NO_DISC)
 
-        return self.round_success()
+        return self.round_retry('弹窗状态未知', wait=1)
 
     @node_from(from_name='检查可拆数量')
     @operation_node(name='选择弃置')
