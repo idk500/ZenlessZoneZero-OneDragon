@@ -122,17 +122,16 @@ arbited:
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
-  date: '2026-10-27'
-  seq: 18
-  time: '22:26'
-  note: '周期18（22:26，L1 机械执行）：上游 main 仍为 16437820（10-25 #2911），是 zode 的直接 merge-base
-    （zode..upstream/main = 0）→ 本轮无 merge、HEAD 未因上游变动，zode 相对上游独有 185 个提交；
-    主要动作 = 补推 fork 侧落后的 7 个提交（774d3b7b → fbdfe946，含体力计划/拆解修复 6 个 + screen 重生成 1 个），
-    此前只推了 CNB，fork 停在 774d3b7b → ff 推送成功；三端六点 SHA 复核对齐（zode fbdfe946 / mirror 16437820 /
-    zode-meta 1ecb237d，CNB 与 fork 同值），无并行写入、无 force update；校验：3 个触碰的 .py py_compile 全通过、
-    5 个改动 YAML safe_load 全通过，导入冒烟（20 秒阈值）761 模块 0 失败 1 超时（仅 runtime_launcher 打包守卫）；
-    _od_merged.yml 大幅缩行（-4735 行）经比对为格式化重排，画面数 91→91、区域 814→816，无画面丢失；
-    traffic 与周期17 逐字相同（窗口仍 10-13~10-26，clones 417/131、views 14/14），10-27 未结算，只更新 verified_at'
+  date: '2026-10-28'
+  seq: 19
+  time: '04:32'
+  note: '周期19（04:32，L1 机械执行）：上游 main 前进 1 个提交（16437820 → f80b6845，docs(agents) 细化 PR description
+    规范 #2927，仅改 AGENTS.md），merge-base 从 16437820 前移到 f80b6845 → 已 --no-ff 合入 zode（a45d21b3），
+    无冲突，zode 相对上游独有 187 个提交；同时补推 fork 侧落后的 1 个提交（4a73e005 tools/regen_screen_merged.py，
+    此前只推 CNB）→ 三端六点 SHA 复核对齐（zode a45d21b3 / mirror f80b6845 / zode-meta 随本次提交更新），
+    无并行写入、无 force update；mirror 两端 ff 16437820 → f80b6845；校验：触碰的 tools/regen_screen_merged.py
+    py_compile 通过，导入冒烟（20 秒阈值）761 模块 0 失败 1 超时（仅 runtime_launcher 打包守卫，与基线一致）；
+    traffic 与周期17/18 逐字相同（窗口仍 10-13~10-26，clones 417/131、views 14/14，10-27 未结算）'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
@@ -147,9 +146,10 @@ handover:
   - 不要再改 maintenance.md 的写入方条款；如需表达意见走桥接 inbox 或在本 fork 开 issue
   - 手上有未推的本地提交，按 git diff 导出成 patch 放桥接 inbox，由 PC 集成
   current_state:
-    zode: fbdfe946
-    mirror: '16437820'
+    zode: a45d21b3
+    mirror: f80b6845
     zode_meta: 随本次提交更新
     note: CNB 与 fork 双端一致；官仓 origin 暂停推送（见 maintenance.md 铁律 1）；zode 含贝果计划（#2820）、
-      2026-10-26 深夜两处实机修复（运行计数立即落盘 1b67ce23、use_factory_run_record 透传 774d3b7b）
-      与 2026-10-27 体力计划/驱动盘拆解修复（cc375c8b…fbdfe946）
+      2026-10-26 深夜两处实机修复（运行计数立即落盘 1b67ce23、use_factory_run_record 透传 774d3b7b）、
+      2026-10-27 体力计划/驱动盘拆解修复（cc375c8b…fbdfe946）与 screen 合并脚本固化（4a73e005），
+      并于 2026-10-28 04:32 同步上游 #2927（a45d21b3）
