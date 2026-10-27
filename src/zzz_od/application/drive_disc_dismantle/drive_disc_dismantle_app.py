@@ -3,6 +3,8 @@ from one_dragon.base.operation.operation_edge import node_from
 from one_dragon.base.operation.operation_node import operation_node
 from one_dragon.base.operation.operation_notify import NotifyTiming, node_notify
 from one_dragon.base.operation.operation_round_result import OperationRoundResult
+from one_dragon.utils import cv2_utils
+from one_dragon.utils.log_utils import log
 from zzz_od.application.drive_disc_dismantle import drive_disc_dismantle_const
 from zzz_od.application.drive_disc_dismantle.drive_disc_dismantle_config import (
     DriveDiscDismantleConfig,
@@ -18,6 +20,8 @@ from zzz_od.operation.back_to_normal_world import BackToNormalWorld
 class DriveDiscDismantleApp(ZApplication):
 
     """驱动盘分解:按配置批量分解驱动盘。销毁道具(不可逆),务必核对配置。"""
+
+    STATUS_NO_DISC: str = '无可拆盘'
 
     def __init__(self, ctx: ZContext):
         ZApplication.__init__(
@@ -63,6 +67,31 @@ class DriveDiscDismantleApp(ZApplication):
         )
 
     @node_from(from_name='选择等级')
+    @operation_node(name='检查可拆数量', node_max_retry_times=3)
+    def check_disc_count(self) -> OperationRoundResult:
+        """
+        2026-10-27 诊断：仓库全是 S 级盘时「A及以下」选中数为 0 属正常现象，
+        弹窗内「符合以上条件的驱动盘数量」为 0 时应跳过，而不是点灰置的拆解按钮报错。
+        """
+        import re
+
+        area = self.ctx.screen_loader.get_area('仓库-驱动仓库-驱动盘拆解', '文本-符合条件数量')
+        part = cv2_utils.crop_image_only(self.last_screenshot, area.rect)
+        ocr_result = self.ctx.ocr.run_ocr_single_line(part)
+        digits = re.findall(r'\d+', ocr_result)
+        if len(digits) == 0:
+            # OCR 失败（弹窗动画中等）：重试几次后按旧流程继续，保持兼容
+            if self.node_retry_times < 2:
+                return self.round_retry('未识别到符合条件数量', wait=1)
+            return self.round_success('未识别到数量 按原流程继续')
+
+        if int(digits[-1]) == 0:
+            log.info('快速选择符合条件的驱动盘数量为 0 跳过拆解')
+            return self.round_success(DriveDiscDismantleApp.STATUS_NO_DISC)
+
+        return self.round_success()
+
+    @node_from(from_name='检查可拆数量')
     @operation_node(name='选择弃置')
     def choose_abandon(self) -> OperationRoundResult:
         if self.config.dismantle_abandon:
@@ -72,6 +101,7 @@ class DriveDiscDismantleApp(ZApplication):
             return self.round_success('无需选择')
 
     @node_from(from_name='选择等级', success=False)
+    @node_from(from_name='检查可拆数量', success=False)
     @node_from(from_name='选择弃置')
     @node_from(from_name='选择弃置', success=False)
     @operation_node(name='快速选择确认')
@@ -100,6 +130,7 @@ class DriveDiscDismantleApp(ZApplication):
     @node_from(from_name='确认获得')
     @node_from(from_name='确认获得', success=False)
     @node_from(from_name='点击拆解确认', success=False)  # 可能没有需要拆解的
+    @node_from(from_name='检查可拆数量', status=STATUS_NO_DISC)
     @node_notify(when=NotifyTiming.CURRENT_SUCCESS)
     @operation_node(name='返回驱动仓库')  # issue #2701
     def back_to_storage(self) -> OperationRoundResult:

@@ -64,7 +64,7 @@ area_list:
   - 1590
   - 1000
   - 1850
-  - 1055
+  - 1100
   text: 下一步
   lcs_percent: 0.5
   template_sub_dir: ''
