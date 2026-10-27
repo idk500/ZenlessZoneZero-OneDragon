@@ -50,8 +50,9 @@ class DriveDiscDismantleApp(ZApplication):
     @node_from(from_name='前往分解画面')
     @operation_node(name='快速选择')
     def click_filter(self) -> OperationRoundResult:
+        # 等待 2s：弹窗打开动画未完成时，后续品质按钮点击会被吞掉（2026-10-27 诊断：0/300 选中）
         return self.round_by_find_and_click_area(self.last_screenshot, '仓库-驱动仓库-驱动盘拆解', '按钮-快速选择',
-                                                 success_wait=1, retry_wait=1)
+                                                 success_wait=2, retry_wait=1)
 
     @node_from(from_name='快速选择')
     @operation_node(name='选择等级')
