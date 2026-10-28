@@ -101,9 +101,8 @@ def load_fixed_map(map_id: str) -> BagelFixedMap:
 
 
 @lru_cache(maxsize=4)
-def _load_snapshot(map_id: str, metadata: bytes, image_data: bytes, mask_data: bytes) -> BagelFixedMap:
-    """相同内容只提取一次特征；缓存键包含图片、遮罩及预处理元数据。"""
-    data = yaml.safe_load(metadata)
+def _validate_snapshot_metadata(map_id: str, data: object) -> tuple[tuple[float, float], tuple[float, float]]:
+    """核对快照元数据：标识、版本与尺寸原点，返回 (尺寸, 原点)。"""
     if not isinstance(data, dict) or data.get('map_id') != map_id:
         raise ValueError('固定地图标识不匹配')
     if type(data.get('format_version')) is not int or data['format_version'] != 1:
@@ -114,19 +113,37 @@ def _load_snapshot(map_id: str, metadata: bytes, image_data: bytes, mask_data: b
     origin = _pair(data.get('origin_xy'), '原点')
     if any(int(v) != v for v in (*size, *origin)) or min(size) <= 0 or max(size) > 4096:
         raise ValueError('地图尺寸或原点无效')
+    return size, origin
+
+
+def _decode_snapshot_images(
+    image_data: bytes,
+    mask_data: bytes,
+    shape: tuple[int, int],
+) -> tuple[np.ndarray, np.ndarray]:
+    """解码并核对图片与有效像素遮罩，要求 RGBA 图片且透明通道与遮罩一致。"""
     image = cv2.imdecode(np.frombuffer(image_data, np.uint8), cv2.IMREAD_UNCHANGED)
     mask = cv2.imdecode(np.frombuffer(mask_data, np.uint8), cv2.IMREAD_UNCHANGED)
-    shape = (int(size[1]), int(size[0]))
     if image is None or image.shape != (*shape, 4) or image.dtype != np.uint8:
         raise ValueError('固定地图必须是与尺寸一致的 RGBA 图片')
     if mask is None or mask.shape != shape or mask.dtype != np.uint8 or not np.isin(mask, (0, 255)).all() or not np.any(mask):
         raise ValueError('固定地图有效像素遮罩无效')
     if not np.array_equal(image[:, :, 3], mask):
         raise ValueError('地图透明通道与有效遮罩不一致')
+    return image, mask
+
+
+def _validate_snapshot_anchor(data: dict) -> tuple[tuple[float, float], tuple[float, float]]:
+    """核对玩家锚点与既有出生坐标。"""
     anchor = _pair(data.get('anchor_xy'), '玩家锚点')
     spawn = _pair(data.get('spawn_xy'), '出生坐标')
     if not all(0 <= v < 201 for v in anchor) or spawn != (100, 100):
         raise ValueError('地图锚点或既有出生坐标无效')
+    return anchor, spawn
+
+
+def _validate_snapshot_params(data: dict) -> tuple[int, int, int, int, list[str]]:
+    """核对预处理与特征分区参数，返回 (模糊核, 特征边距, 窗口, 步长, 表示列表)。"""
     blur_size = data.get('registration_blur_size')
     edge = data.get('feature_edge_margin')
     window, stride = data.get('match_window_size'), data.get('match_window_stride')
@@ -139,14 +156,19 @@ def _load_snapshot(map_id: str, metadata: bytes, image_data: bytes, mask_data: b
         item not in ('clahe_min_channel', 'highpass_min_channel') for item in representations
     ):
         raise ValueError('地图图像表示参数无效')
-    settings, arrows = _freeze_settings(data.get('mask')), _freeze_settings(data.get('player_arrow'))
-    _validate_settings(settings, arrows)
-    # 只填补被观测区域包围的孔洞，不向外围扩张；这不是可通行图。
-    padded = np.pad(mask, 1)
-    outside = padded.copy()
-    cv2.floodFill(outside, None, (0, 0), 255)
-    position_mask = cv2.bitwise_or(padded, cv2.bitwise_not(outside))[1:-1, 1:-1].copy()
-    feature_mask = cv2.erode(mask, np.ones((edge * 2 + 1, edge * 2 + 1), np.uint8))
+    return blur_size, edge, window, stride, representations
+
+
+def _build_feature_banks(
+    image: np.ndarray,
+    feature_mask: np.ndarray,
+    shape: tuple[int, int],
+    representations: list[str],
+    blur_size: int,
+    window: int,
+    stride: int,
+) -> list[MapFeatureBank]:
+    """按表示列表逐个提取特征并切分特征分区。"""
     banks = []
     for representation in representations:
         features = extract_features(registration_image(image, representation, blur_size), feature_mask)
@@ -163,6 +185,26 @@ def _load_snapshot(map_id: str, metadata: bytes, image_data: bytes, mask_data: b
                     selected.setflags(write=False)
                     regions.append(selected)
         banks.append(MapFeatureBank(representation, features, tuple(regions)))
+    return banks
+
+
+def _load_snapshot(map_id: str, metadata: bytes, image_data: bytes, mask_data: bytes) -> BagelFixedMap:
+    """相同内容只提取一次特征；缓存键包含图片、遮罩及预处理元数据。"""
+    data = yaml.safe_load(metadata)
+    size, origin = _validate_snapshot_metadata(map_id, data)
+    shape = (int(size[1]), int(size[0]))
+    image, mask = _decode_snapshot_images(image_data, mask_data, shape)
+    anchor, spawn = _validate_snapshot_anchor(data)
+    blur_size, edge, window, stride, representations = _validate_snapshot_params(data)
+    settings, arrows = _freeze_settings(data.get('mask')), _freeze_settings(data.get('player_arrow'))
+    _validate_settings(settings, arrows)
+    # 只填补被观测区域包围的孔洞，不向外围扩张；这不是可通行图。
+    padded = np.pad(mask, 1)
+    outside = padded.copy()
+    cv2.floodFill(outside, None, (0, 0), 255)
+    position_mask = cv2.bitwise_or(padded, cv2.bitwise_not(outside))[1:-1, 1:-1].copy()
+    feature_mask = cv2.erode(mask, np.ones((edge * 2 + 1, edge * 2 + 1), np.uint8))
+    banks = _build_feature_banks(image, feature_mask, shape, representations, blur_size, window, stride)
     for array in (image, mask, position_mask):
         array.setflags(write=False)
     return BagelFixedMap(
