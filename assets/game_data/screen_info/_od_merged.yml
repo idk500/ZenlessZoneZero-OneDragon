@@ -2605,6 +2605,14 @@
     - 802
     text: 确认
     lcs_percent: 0.5
+  - area_name: 按钮-快速选择-重置
+    area_type: text
+    pc_rect:
+    - 665
+    - 755
+    - 940
+    - 805
+    text: 重置
   - area_name: 按钮-拆解
     area_type: text
     pc_rect:
