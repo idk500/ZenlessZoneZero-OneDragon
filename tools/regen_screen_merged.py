@@ -4,11 +4,11 @@
 背景：
 - 框架运行时只读 assets/game_data/screen_info/_od_merged.yml，往分离文件
   （如 drive_disc_dismantle.yml）新增区域后必须重生成合并文件才会生效。
-- ScreenContext 的工作目录解析固定指向 E:\\ZZZ-1D，因此本脚本在 ZZZ-1D 侧
+- ScreenContext 的工作目录解析固定指向 E:\\Z1D\\app，因此本脚本在 Z1D 侧
   生成后复制回 ZODE，两仓分离文件保持一致。
 
 用法：
-    /e/ZZZ-1D/.venv/Scripts/python.exe tools/regen_screen_merged.py
+    /e/Z1D/.venv/Scripts/python.exe tools/regen_screen_merged.py
 
 2026-10-27 拆解修复时手工完成过一次（提交 1012a1f1），本脚本固化该步骤。
 """
@@ -16,8 +16,8 @@ import shutil
 import subprocess
 import sys
 
-ZZZ1D = r'E:\ZZZ-1D'
-ZODE = r'E:\ZODE'
+ZZZ1D = r'E:\Z1D\app'
+ZODE = r'E:\Z1D\zode'
 MERGED_REL = r'assets\game_data\screen_info\_od_merged.yml'
 
 REGEN_SNIPPET = '''
