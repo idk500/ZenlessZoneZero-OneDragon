@@ -149,7 +149,8 @@ handover:
     zode: a45d21b3
     mirror: f80b6845
     zode_meta: 随本次提交更新
-    note: CNB 与 fork 双端一致；官仓 origin 暂停推送（见 maintenance.md 铁律 1）；zode 含贝果计划（#2820）、
+    note: CNB 与 fork 双端一致；官仓 origin **永不推**（用户 2026-10-28 裁定：推了也合不进，官方仓只收用户
+      手动指定的 PR）；fork 侧由本机每小时自动化兜底跟随 CNB（只快进、不 force）；zode 含贝果计划（#2820）、
       2026-10-26 深夜两处实机修复（运行计数立即落盘 1b67ce23、use_factory_run_record 透传 774d3b7b）、
       2026-10-27 体力计划/驱动盘拆解修复（cc375c8b…fbdfe946）与 screen 合并脚本固化（4a73e005），
       并于 2026-10-28 04:32 同步上游 #2927（a45d21b3）
