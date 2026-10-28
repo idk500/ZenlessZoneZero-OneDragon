@@ -69,12 +69,28 @@ class ApplicationLauncher(LauncherBase):
                 self.ctx.after_app_shutdown()
                 sys.exit(1)
 
+    def get_target_app_id(self, args) -> str:
+        """根据参数获取要运行的应用ID，-a 指定单应用时校验其已注册"""
+        app_id = getattr(args, 'app', None)
+        if not app_id:
+            return application_const.ONE_DRAGON_APP_ID
+
+        run_context = self.ctx.run_context
+        if not run_context.is_app_registered(app_id):
+            registered = sorted(getattr(run_context, '_application_factory_map', {}).keys())
+            log.error("应用 %s 未注册。可用应用: %s", app_id, ', '.join(registered))
+            self.ctx.after_app_shutdown()
+            sys.exit(1)
+
+        log.info("单应用运行模式: %s", app_id)
+        return app_id
+
     def run_application(self, args) -> None:
         """运行应用"""
         try:
-            # 执行一条龙应用
+            # 执行一条龙应用（-a 指定时只运行该应用）
             run_result = self.ctx.run_context.run_application(
-                app_id=application_const.ONE_DRAGON_APP_ID,
+                app_id=self.get_target_app_id(args),
                 instance_idx=self.ctx.current_instance_idx,
                 group_id=application_const.DEFAULT_GROUP_ID,
             )
