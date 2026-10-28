@@ -123,14 +123,15 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-28'
-  seq: 20
-  time: '10:41'
-  note: '周期20（10:41，L1 机械执行）：上游 main 无新提交（f80b6845，GitHub 与 cnb.cool 官方镜像两处独立核对同值），
-    merge-base = upstream/main 本身 → 0 merge，HEAD 未动；三端六点 SHA 逐字相符（zode 5e93a89b / mirror f80b6845 /
-    zode-meta 随本次提交更新），无并行写入、无 force update；本轮零代码推送（zode/mirror 双端已 up-to-date），
-    唯一写入 = 清单与 traffic 快照；校验：本轮无 .py 触碰（空集），导入冒烟 761 模块 0 失败 1 超时（runtime_launcher
-    打包守卫，与基线一致）；traffic 窗口未滚动（仍 2026-10-13~2026-10-26），clones 417/131、views 14/14 与周期17-19
-    逐字相同 → 同日第二轮只更新核验时间，未重复铺数据'
+  seq: 21
+  time: '16:52'
+  note: '周期21（16:52，L1 机械执行）：上游 main 无新提交（f80b6845，GitHub fetch 与 cnb.cool 官方镜像两处独立核对同值），
+    merge-base = upstream/main 本身 → 0 merge，HEAD 未动（zode 5e93a89b）；CNB 与 fork 三支六点 SHA 逐字相同
+    （zode 5e93a89b / mirror f80b6845 / zode-meta 6a1b90ac），逐支 merge-base --is-ancestor 成立 → 无并行写入、
+    无 force update；本轮零代码推送（zode/mirror 四目标 dry-run 全 Everything up-to-date），唯一写入 = 清单与 traffic 快照；
+    校验：本轮无 merge、无已跟踪改动 → py_compile 空集，导入冒烟 761 模块 0 失败 1 超时（runtime_launcher 打包守卫，
+    与基线一致）；traffic **窗口滚动** 10-13~10-26 → 2026-10-14~2026-10-27，10-27 结算 clones 30/16、views 2/1，
+    累计 clones 417/131 → 445/141、views 14/14 → 14/13（10-13 当天数据滚出窗口），已按新窗口落盘数据'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话

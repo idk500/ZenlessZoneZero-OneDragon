@@ -564,16 +564,12 @@ snapshots:
         count: 2
         uniques: 2
   '2026-10-28':
-    verified_at: '2026-10-28T10:41:00+08:00'
-    verified_note: 周期20（10:41）复查：14 天窗口仍为 2026-10-13~2026-10-26（10-27 仍未结算），累计 clones
-      417/131、views 14/14，与周期17/18/19 逐字相同；同日第二轮，只更新核验时间，未重复铺数据、未新增未结算日期
+    verified_at: '2026-10-28T16:52:00+08:00'
+    verified_note: 周期21（16:52）复查：14 天窗口滚动 10-13~10-26 → 2026-10-14~2026-10-27，10-27 结算 clones 30/16、views 2/1；10-13 当天 2/2、2/2 滚出窗口。累计 clones 417/131 → 445/141、views 14/14 → 14/13（views 日值加总仍 14 不变，uniques 少 1 是 10-13 当天 2 个 uniques 滚出窗口所致，非数据异常）。
     clones:
-      count: 417
-      uniques: 131
+      count: 445
+      uniques: 141
       clones:
-      - timestamp: '2026-10-13T00:00:00Z'
-        count: 2
-        uniques: 2
       - timestamp: '2026-10-14T00:00:00Z'
         count: 2
         uniques: 2
@@ -613,13 +609,13 @@ snapshots:
       - timestamp: '2026-10-26T00:00:00Z'
         count: 19
         uniques: 12
+      - timestamp: '2026-10-27T00:00:00Z'
+        count: 30
+        uniques: 16
     views:
       count: 14
-      uniques: 14
+      uniques: 13
       views:
-      - timestamp: '2026-10-13T00:00:00Z'
-        count: 2
-        uniques: 2
       - timestamp: '2026-10-14T00:00:00Z'
         count: 0
         uniques: 0
@@ -659,3 +655,6 @@ snapshots:
       - timestamp: '2026-10-26T00:00:00Z'
         count: 2
         uniques: 2
+      - timestamp: '2026-10-27T00:00:00Z'
+        count: 2
+        uniques: 1
