@@ -96,6 +96,7 @@ class DriveDiscDismantleApp(ZApplication):
         # 临时诊断: 数量读取时保存弹窗截图, 排查「标记2件但读数0」
         try:
             import os
+
             import cv2
             dbg_dir = os.path.join(os.getcwd(), '.debug', 'dismantle_debug')
             os.makedirs(dbg_dir, exist_ok=True)
