@@ -1365,6 +1365,13 @@
     - 860
     - 1681
     - 862
+  - area_name: 首领头像
+    area_type: none
+    pc_rect:
+    - 1711
+    - 52
+    - 1837
+    - 99
 - screen_id: battle_menu
   screen_name: 战斗-菜单
   pc_alt: false
