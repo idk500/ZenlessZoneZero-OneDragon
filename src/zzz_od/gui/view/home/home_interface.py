@@ -132,8 +132,8 @@ class ButtonGroup(QWidget):
         QDesktopServices.openUrl(QUrl(self.ctx.project_config.github_homepage))
 
     def open_plugin_market(self):
-        """打开官方插件商城（plugin-registry 站点）"""
-        QDesktopServices.openUrl(QUrl('https://onedragon-anyone.github.io/plugin-registry/'))
+        """打开官方插件商城（plugin-data 站点）"""
+        QDesktopServices.openUrl(QUrl('https://onedragon-anyone.github.io/plugin-data/'))
 
     def open_chat(self):
         """打开 频道 链接"""

@@ -197,7 +197,7 @@ class SettingPluginInterface(VerticalScrollInterface):
         self.open_market_btn = PushButton(FluentIcon.SHOPPING_CART, gt('插件市场'))
         self.open_market_btn.clicked.connect(
             lambda: QDesktopServices.openUrl(
-                QUrl('https://onedragon-anyone.github.io/plugin-registry/')
+                QUrl('https://onedragon-anyone.github.io/plugin-data/')
             )
         )
 
