@@ -64,6 +64,43 @@ def _get_stats_bar_palette() -> dict:
     }
 
 
+def _make_stat_label(
+    text: str,
+    font: QFont,
+    color: str,
+    alignment: Qt.AlignmentFlag | None = None,
+) -> QLabel:
+    """按统计栏统一样式创建 QLabel（alignment 传 None 保持默认对齐）"""
+    lbl = QLabel(text)
+    lbl.setFont(font)
+    lbl.setStyleSheet(f'color: {color}; border: none;')
+    if alignment is not None:
+        lbl.setAlignment(alignment)
+    return lbl
+
+
+def _build_subtitle_parts(user_stats) -> list[str]:
+    """副标题文案：首次使用日期 + 游戏运行时间 + 电量消耗 + 总运行次数"""
+    parts: list[str] = []
+    first_date = user_stats.first_use_date
+    if first_date:
+        parts.append(f'自 {first_date}')
+    play_minutes = user_stats.game_play_minutes
+    if play_minutes > 0:
+        hours, mins = divmod(play_minutes, 60)
+        if hours > 0:
+            parts.append(f'陪伴绝区零 {hours}小时{mins}分钟')
+        else:
+            parts.append(f'陪伴绝区零 {mins}分钟')
+    charge_power = user_stats.total_charge_power
+    if charge_power > 0:
+        parts.append(f'消耗 {charge_power} 电量')
+    total_runs = user_stats.total_run_count
+    if total_runs > 0:
+        parts.append(f'共运行 {total_runs} 次')
+    return parts
+
+
 class StatsBarBackground(QWidget):
     """半透明磨砂背景层，跟随 StatsBar 大小"""
 
@@ -136,13 +173,6 @@ class StatsBar(QWidget):
         self._clear_layout()
         palette = _get_stats_bar_palette()
 
-        # 收集有数据的项目
-        active: list[tuple[str, str, int]] = []
-        for key, name in STATS_ITEMS:
-            c = self._get_count(key)
-            if c > 0:
-                active.append((key, name, c))
-
         outer = QVBoxLayout(self)
         outer.setContentsMargins(12, 8, 12, 8)
         outer.setSpacing(4)
@@ -150,59 +180,65 @@ class StatsBar(QWidget):
             QVBoxLayout.SizeConstraint.SetMinAndMaxSize
         )
 
-        dim_color = palette['dim'].name(QColor.NameFormat.HexArgb)
+        active = self._collect_active_items()
 
         if not active:
-            placeholder = QLabel('一条龙已为您完成的内容将在运行后显示')
-            placeholder.setFont(QFont("Microsoft YaHei", 9))
-            placeholder.setStyleSheet(
-                f'color: {dim_color}; border: none;'
-            )
-            placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            outer.addWidget(placeholder)
-            self._cleanups.append(placeholder)
+            self._append_placeholder(outer, palette)
             return
 
-        # 标题行
-        title_label = QLabel('一条龙已为您完成')
-        title_label.setFont(
-            QFont("Microsoft YaHei", 9, QFont.Weight.Bold)
+        self._append_title(outer, palette)
+        self._append_subtitle(outer, palette)
+        self._append_grid(outer, palette, active)
+
+    def _collect_active_items(self) -> list[tuple[str, str, int]]:
+        """收集有数据的项目"""
+        active: list[tuple[str, str, int]] = []
+        for key, name in STATS_ITEMS:
+            c = self._get_count(key)
+            if c > 0:
+                active.append((key, name, c))
+        return active
+
+    def _append_placeholder(self, outer: QVBoxLayout, palette: dict) -> None:
+        """无数据时的占位文案"""
+        dim_color = palette['dim'].name(QColor.NameFormat.HexArgb)
+        placeholder = _make_stat_label(
+            '一条龙已为您完成的内容将在运行后显示',
+            QFont("Microsoft YaHei", 9), dim_color,
+            Qt.AlignmentFlag.AlignCenter,
         )
+        outer.addWidget(placeholder)
+        self._cleanups.append(placeholder)
+
+    def _append_title(self, outer: QVBoxLayout, palette: dict) -> None:
+        """标题行"""
         title_color = palette['title'].name(QColor.NameFormat.HexArgb)
-        title_label.setStyleSheet(
-            f'color: {title_color}; border: none;'
+        title_label = _make_stat_label(
+            '一条龙已为您完成',
+            QFont("Microsoft YaHei", 9, QFont.Weight.Bold), title_color,
         )
         outer.addWidget(title_label)
         self._cleanups.append(title_label)
 
-        # 副标题行：首次使用日期 + 游戏运行时间 + 电量消耗 + 总运行次数
-        subtitle_parts: list[str] = []
-        first_date = self.user_stats.first_use_date
-        if first_date:
-            subtitle_parts.append(f'自 {first_date}')
-        play_minutes = self.user_stats.game_play_minutes
-        if play_minutes > 0:
-            hours, mins = divmod(play_minutes, 60)
-            if hours > 0:
-                subtitle_parts.append(f'陪伴绝区零 {hours}小时{mins}分钟')
-            else:
-                subtitle_parts.append(f'陪伴绝区零 {mins}分钟')
-        charge_power = self.user_stats.total_charge_power
-        if charge_power > 0:
-            subtitle_parts.append(f'消耗 {charge_power} 电量')
-        total_runs = self.user_stats.total_run_count
-        if total_runs > 0:
-            subtitle_parts.append(f'共运行 {total_runs} 次')
-        if subtitle_parts:
-            subtitle_label = QLabel('  ·  '.join(subtitle_parts))
-            subtitle_label.setFont(QFont("Microsoft YaHei", 8))
-            subtitle_label.setStyleSheet(
-                f'color: {dim_color}; border: none;'
-            )
-            outer.addWidget(subtitle_label)
-            self._cleanups.append(subtitle_label)
+    def _append_subtitle(self, outer: QVBoxLayout, palette: dict) -> None:
+        """副标题行：首次使用日期 + 游戏运行时间 + 电量消耗 + 总运行次数"""
+        parts = _build_subtitle_parts(self.user_stats)
+        if not parts:
+            return
+        dim_color = palette['dim'].name(QColor.NameFormat.HexArgb)
+        subtitle_label = _make_stat_label(
+            '  ·  '.join(parts), QFont("Microsoft YaHei", 8), dim_color,
+        )
+        outer.addWidget(subtitle_label)
+        self._cleanups.append(subtitle_label)
 
-        # 网格
+    def _append_grid(
+        self,
+        outer: QVBoxLayout,
+        palette: dict,
+        active: list[tuple[str, str, int]],
+    ) -> None:
+        """多列网格：每个项目上数字下名称，一条龙/格挡高亮"""
         grid = QGridLayout()
         grid.setHorizontalSpacing(6)
         grid.setVerticalSpacing(2)
@@ -212,31 +248,24 @@ class StatsBar(QWidget):
         name_font = QFont("Microsoft YaHei", 8)
         num_color = palette['number'].name(QColor.NameFormat.HexArgb)
         hl_color = palette['title'].name(QColor.NameFormat.HexArgb)
+        dim_color = palette['dim'].name(QColor.NameFormat.HexArgb)
 
-        row = 0
-        col = 0
-        for key, name, count in active:
+        for idx, (key, name, count) in enumerate(active):
+            row, col = divmod(idx, self.COLS)
             is_hl = key in ('one_dragon', 'dodge')
             color = hl_color if is_hl else num_color
 
-            num_lbl = QLabel(str(count))
-            num_lbl.setFont(num_font)
-            num_lbl.setStyleSheet(f'color: {color}; border: none;')
-            num_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            num_lbl = _make_stat_label(
+                str(count), num_font, color, Qt.AlignmentFlag.AlignCenter,
+            )
             grid.addWidget(num_lbl, row * 2, col)
             self._cleanups.append(num_lbl)
 
-            name_lbl = QLabel(name)
-            name_lbl.setFont(name_font)
-            name_lbl.setStyleSheet(f'color: {dim_color}; border: none;')
-            name_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            name_lbl = _make_stat_label(
+                name, name_font, dim_color, Qt.AlignmentFlag.AlignCenter,
+            )
             grid.addWidget(name_lbl, row * 2 + 1, col)
             self._cleanups.append(name_lbl)
-
-            col += 1
-            if col >= self.COLS:
-                col = 0
-                row += 1
 
         outer.addLayout(grid)
 
