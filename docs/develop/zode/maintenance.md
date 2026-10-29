@@ -37,7 +37,7 @@ ZODE（**Z**enless **O**ne **D**ragon **E**nhanced）是本 fork 的增强发行
 
 ## 冲突分类
 
-- **Class 1（自动推进）**：只有唯一合理答案的冲突——上游改名/搬移/删除后的功能重新挂载、import/语法修补、上游已有等价实现则弃我方。自动解决，记入清单 resolved 区。
+- **Class 1（自动推进）**：只有唯一合理答案的冲突——上游改名/搬移/删除后的功能重新挂载、import/语法修补、上游已有等价实现则弃我方、**生成文件（如 `assets/game_data/screen_info/_od_merged.yml`）与分包源的双向冲突：接受上游分包改动后用重生成脚本（`tools/regen_screen_merged.py`）重建合并文件**。自动解决，记入清单 resolved 区。（生成文件口径为 2026-10-29 用户裁定：合并后重生成是唯一合理解，不再因此停车。）
 - **Class 2（仲裁）**：多解冲突——两个 PR 用不同实现修同一问题、或与上游演进互斥且各有合理性。流程：
   1. 在**本 fork** 开 issue，标题「[仲裁] <主题>（PR #A vs #B/上游）」；
   2. 正文给出双方方案 diff 要点、影响面、中立分析与推荐及理由；
@@ -102,7 +102,7 @@ fork 上的分支分三类：发行通道（`main` / `mirror` / `zode`）、维�
 
 ## 单一提交者制度（2026-10-25 定，同日 23:10 修订）
 
-ZODE / mirror / zode-meta / 各发行分支**只允许一处写入**：Windows 维护机（`E:\ZODE`，每日定时 + 用户触发的交互会话）。2026-10-25 晚写入方从 Mac 会话移交本机，Mac 及其余机器一律不直接推送这些分支。
+ZODE / mirror / zode-meta / 各发行分支**只允许一处写入**：Windows 维护机（`E:\Z1D`，每日定时 + 用户触发的交互会话；2026-10-29 目录大迁移前为 `E:\ZODE`）。2026-10-25 晚写入方从 Mac 会话移交本机，Mac 及其余机器一律不直接推送这些分支。
 
 移交理由：唯一测试环境在 Windows（GUI 与真实自动化只能在这里跑），写入方与测试环境分离会让「合入前必须实机验证」这条无法执行。
 
@@ -128,18 +128,19 @@ git config user.email  # 必须输出 mr.fc@qq.com
 按本清单逐条执行，**只做清单内动作，遇到任何清单外情况即升级 L3 并停止**：
 
 ```text
-1. worktree add E:\ZODE-work zode（已存在则跳过）
+1. 在 E:\Z1D\zode 工作副本内执行（2026-10-29 目录迁移后不再另建 worktree）
 2. 删除 refs/remotes/idk500/*、refs/remotes/cnb/* 全部 tracking 引用，重新显式 refspec fetch，
    fetch 后核对引用值（rev-parse 输出）才可继续
 3. 上游 main：优先 fetch origin；失败改拉 https://cnb.cool/OneDragon-Anything/ZenlessZoneZero-OneDragon.git
 4. 上游有新提交：git merge --no-ff <上游tip> -m "feat: 同步官方 main 至 <短id>"
    - 无冲突 → 继续 5
-   - 有冲突 → 停止，升级 L3（不得自行解冲突）
+   - 有冲突且属 Class 1（含生成文件 _od_merged.yml，解法=接受分包改动后重生成）→ 解后记 resolved 继续 5
+   - 其余冲突 → 停止，升级 L3（不得自行解冲突）
 5. 校验：触碰的 .py 逐个 py_compile（通过即可，存量 lint 不阻塞）
 6. 推送：先 fetch 对应远端确认无并行推送，再推 CNB 与 GitHub（**分支名一律小写 `zode`**、
    `mirror`——客户端按 `refs/heads/zode` 精确大小写拉取，大小写不同等于该分支不存在）
 7. zode-meta：在最新远端版本上追加 last_cycle（当天日期+一句状态）与 traffic 快照，双推
-8. 桥接：读 `E:\ZZZ-1D\zode-agent\bridge\inbox\` 新文件；周期报告写 `bridge\outbox\cycle-report-<日期>.md`
+8. 桥接：读 `E:\Z1D\zode-agent\bridge\inbox\` 新文件；周期报告写 `E:\Z1D\zode-agent\bridge\outbox\cycle-report-<日期>.md`
 9. 常规观察（各一行结论）：仲裁 issues/2 票况 / traffic 数 / 主仓 #2892、#2895、#2904 状态 / fork 分支清单
 ```
 
