@@ -2613,6 +2613,7 @@
     - 940
     - 805
     text: 重置
+    lcs_percent: 0.5
   - area_name: 按钮-拆解
     area_type: text
     pc_rect:
