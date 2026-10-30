@@ -659,15 +659,12 @@ snapshots:
         count: 2
         uniques: 1
   '2026-10-30':
-    verified_at: '2026-10-30T10:05:00+08:00'
-    verified_note: 周期24（2026-10-30 10:05）复查实拉：窗口仍 2026-10-15~2026-10-28（10-29 尚未结算），clones 531/164、views 15/14 与周期23 逐字相同，逐日值未变；本轮不新增日期键、不改任何日值，仅刷新 verified_at。口径同前：fetch 不计数，clones 总 uniques 不等于日值相加属 GitHub 窗口去重。
+    verified_at: '2026-10-30T16:12:00+08:00'
+    verified_note: 周期25（2026-10-30 16:12）实拉刷新：窗口已滚动为 2026-10-16~2026-10-29（10-29 已结算：clones 51/25、views 0/0），累计 clones 581/182、views 15/14（10-15 当日 1/1 滚出，531−1+51=581 与 API 吻合）；同日第二轮仍只维护 '2026-10-30' 单键，整体替换为本次实拉数据，不新建同日第二键。口径同前：fetch 不计数，clones 总 uniques 不等于日值相加属 GitHub 窗口去重。
     clones:
-      count: 531
-      uniques: 164
+      count: 581
+      uniques: 182
       clones:
-      - timestamp: '2026-10-15T00:00:00Z'
-        count: 1
-        uniques: 1
       - timestamp: '2026-10-16T00:00:00Z'
         count: 2
         uniques: 2
@@ -707,13 +704,13 @@ snapshots:
       - timestamp: '2026-10-28T00:00:00Z'
         count: 88
         uniques: 31
+      - timestamp: '2026-10-29T00:00:00Z'
+        count: 51
+        uniques: 25
     views:
       count: 15
       uniques: 14
       views:
-      - timestamp: '2026-10-15T00:00:00Z'
-        count: 0
-        uniques: 0
       - timestamp: '2026-10-16T00:00:00Z'
         count: 0
         uniques: 0
@@ -753,3 +750,6 @@ snapshots:
       - timestamp: '2026-10-28T00:00:00Z'
         count: 1
         uniques: 1
+      - timestamp: '2026-10-29T00:00:00Z'
+        count: 0
+        uniques: 0

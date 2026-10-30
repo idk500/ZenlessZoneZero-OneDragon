@@ -123,9 +123,9 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-30'
-  seq: 24
-  time: '10:05'
-  note: 周期24（2026-10-30 10:05，L1 例行）：上游 main tip 仍为 4ea55019（GitHub 直连与代理本轮均不可用，改由 cnb.cool 官方镜像单源取得，与本地 upstream/main 同值），已是 HEAD 祖先、rev-list 左右计数 0/200 → 本轮 0 merge、HEAD 未动 b5e6c153；三支六点逐字相符——zode 9d9a84fb / mirror 4ea55019 / zode-meta 0ec6a3b8，fork 三支因 git over https 不可达而改用 GitHub API git/ref 核对，结果全部等于 CNB → 无并行写入、无 force update；本轮零代码推送：本地 zode 领先 CNB 11 笔，按用户 2026-10-29 裁定「推远程前提=实机验证通过」继续整批挂起；闸门现状有变化——E:/Z1D/app/.venv/pyvenv.cfg 于 2026-10-30 09:06 被改为 home 指向系统 Python311（原指向已删除的 E:/ZZZ-1D 路径），venv python 实测可执行，悬而未决 #21 的悬空症状消失，但 10-30 仍无实机运行记录（实例日志停在 10-29 23:14:55），下一次验证机会为当日 13:25 计划任务；校验：本轮无 merge 故 py_compile 空集，待推批次 16 个 .py 全部 py_compile 通过、20 个 .yml 全部 safe_load 通过，导入冒烟 762 模块 0 失败 / 1 超时（runtime_launcher 打包守卫，1m53s）；traffic 窗口仍 2026-10-15~2026-10-28（10-29 未结算），clones 531/164、views 15/14 与周期23 逐字相同，故只更新 verified_at、不造未结算日数据
+  seq: 25
+  time: '16:12'
+  note: '周期25（2026-10-30 16:12，L1 例行）：上游前进 1 提交 4ea55019 → a0f829ea（fix(hollow): 枯萎之都默认挑战配置改用全配队通用 #2943，仅 1 个 .sample.yml 改 1 行），merge-tree 预检干净、--no-ff 合入 2b885232（消息 feat: 同步官方 main 至 a0f829ea），无冲突；mirror 双端 ff 到 a0f829ea；zode 双端 ff 0cffa9cf → 2b885232（含 16:09 交互会话的 docs 提交 212dee32 与本次上游合并，本次推送区间无 .py 改动），推远程闸门已于当日 13:25 计划任务通过（app 日志 13:27–14:19 全链「执行成功 全部结束」，18 个 app_run_record 当日落盘），故原挂起的 11 笔已由交互会话推至 0cffa9cf、本轮继续前进；推送前 ls-remote 两端三支核对一致，推后复核四目标 SHA 逐字相符 → 无并行写入、无 force update；校验：本次触碰 .py 为空集（区间改动 = 1 个 md + 1 个 .sample.yml），该 yml safe_load 通过（auto_battle=全配队通用），导入冒烟 762 模块 0 失败 / 1 超时（runtime_launcher 打包守卫）；增强分支 c0347b28 无未合入提交；traffic 窗口滚至 2026-10-16~2026-10-29，10-29 结算 clones 51/25、views 0/0，累计 clones 581/182、views 15/14'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
