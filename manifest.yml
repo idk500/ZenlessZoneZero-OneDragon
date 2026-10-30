@@ -122,10 +122,10 @@ arbited:
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
-  date: '2026-10-30'
-  seq: 26
-  time: '22:24'
-  note: '周期26（2026-10-30 22:24，L3 升级停止）：上游前进 2 提交 a0f829ea → 43adbbff（43adbbff feat(plugin): 插件管理与插件商店改为应用商店形态 #2896，19 文件 +3242/−481；fc5acabf refactor(notify): 拆分 send_node_notify 降低圈复杂度 #2947 = 本 fork 自有提交 2a6de80a 被官方合入，作者 Roy，内容逐字相同）；merge-tree --write-tree zode 43adbbff 预检报 CONFLICT 2 处：deploy/module_manifest.py（AUTO-GENERATED 的 import 清单双侧分叉）、src/one_dragon_qt/view/plugin/plugin_manage_interface.py（上游把 src/zzz_od/gui/view/setting/setting_plugin_interface.py 改名重写 677 行，而我方改过旧文件 1 行 → rename/modify 冲突），按停止线未执行 merge、工作区与索引未触碰；代码分支零写入（本轮开局即三支六点全对齐 zode 2b885232 / mirror a0f829ea / zode-meta afc224f3，无待推内容），mirror 未前进至 43adbbff 属停机后果非漏推；唯一写入 = 本清单提交；traffic 窗口仍 2026-10-16~2026-10-29，累计 clones 581/182、views 15/14 与周期25 逐字相同（10-30 未结算），故只刷新 verified_at'
+  date: '2026-10-31'
+  seq: 27
+  time: '04:35'
+  note: '周期27（2026-10-31 04:35，L3 升级停止）：上游前进 1 提交 ba72fdd4 → 5f2e473b（5f2e473b fix(runtime): 按新增导入检查兼容性 #2912，8 文件 +602/−39，新增 src/one_dragon/envs/runtime_compatibility.py、tools/ci/check_runtime_compatibility.py 与 runtime-compatibility.yml 工作流，并重写 git_service.py 的清单比对职责）；merge-tree --write-tree zode 5f2e473b 预检报 CONFLICT 1 处 = docs/develop/one_dragon/runtime_launcher.md（我方版本把「CI 自动构建」一条改写为「CI 构建检查/清单同步/完整产物检查」三条，该文本由已合入的社区 PR #2820 贝果分支带入；上游 #2912 整段重写上文「解决方案」并在同一列表追加「CI 兼容性检查」→ 同一列表行级相撞），docs 冲突不属 maintenance.md Class 1 枚举范围，按停止线未执行 merge、工作区与索引未被触碰（git status 仍是开局 10 条未跟踪条目，无已跟踪改动）；代码分支零推送，本地 zode 领先 CNB 2 笔（15732dbc 夜间合并 ba72fdd4 + 778a3953 logistics_shop 新应用）按实机验证闸整批挂起——02:04 轮实跑 app HEAD 2b885232（= CNB，不含这 2 笔），且 charge_plan run_status=0、返回大世界死循环由 monitor 终止，闸未通过；mirror 未前进至 5f2e473b 属停机后果非漏推；唯一写入 = 本清单提交；traffic 窗口仍 2026-10-16~2026-10-29，累计 clones 581/182、views 15/14 与周期26 逐字相同（10-30 未结算），故只刷新 verified_at 并新增 2026-10-31 键'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
