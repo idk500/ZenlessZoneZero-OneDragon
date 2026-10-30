@@ -659,8 +659,8 @@ snapshots:
         count: 2
         uniques: 1
   '2026-10-30':
-    verified_at: '2026-10-30T03:55:00+08:00'
-    verified_note: 周期23（2026-10-30 03:55）实拉：窗口滚动到 2026-10-15~2026-10-28；10-28 结算 clones 88/31、views 1/1；累计 clones 531/164（周期22 的 445/141 为 10-14~10-27 窗口，10-14 的 2/2 滚出）；views 15/14（10-14 为 0/0）。clones 总 uniques 不等于日值相加属 GitHub 窗口去重口径。
+    verified_at: '2026-10-30T10:05:00+08:00'
+    verified_note: 周期24（2026-10-30 10:05）复查实拉：窗口仍 2026-10-15~2026-10-28（10-29 尚未结算），clones 531/164、views 15/14 与周期23 逐字相同，逐日值未变；本轮不新增日期键、不改任何日值，仅刷新 verified_at。口径同前：fetch 不计数，clones 总 uniques 不等于日值相加属 GitHub 窗口去重。
     clones:
       count: 531
       uniques: 164
