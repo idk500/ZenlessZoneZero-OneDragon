@@ -123,9 +123,9 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-31'
-  seq: 29
-  time: '17:00'
-  note: '周期29（2026-10-31 17:00，L3 升级停止·同一文件连续第三轮）：上游 tip 仍为 5f2e473b（#2912），本轮 GitHub 直连与 CNB 官方镜像两源同值（网络恢复，恢复双源交叉核对）；merge-tree --write-tree zode 5f2e473b 第三次报同一处 CONFLICT，文件与三侧 blob 与周期27/28 逐字同形（docs/develop/one_dragon/runtime_launcher.md，base f588cbc3 / 我方 3419d746 / 上游 a4978348）→ 按停止线未执行 merge，工作区与索引未触碰（git status 仅 11 条未跟踪、零已跟踪改动、无 MERGE_HEAD）；代码零推送，本地 zode 778a3953 领先 CNB 5 个提交（3 上游 + 夜间合并 15732dbc + logistics_shop 778a3953）；实机侧今日确在跑（city_fund 成功，world_patrol/notify/驱动盘拆解 失败，16:49 仍在运行）但 app HEAD 仍 2b885232，对待推提交零覆盖（STATE #24 死结）；fork 三支 ls-remote 与 CNB 逐字相同（zode 2b885232 / mirror ba72fdd4 / zode-meta cf523daf，周期28 未推成功的清单提交已由兜底自动化补上），is-ancestor 成立无并行写入；mirror 未前进（停机后果非漏推）；导入冒烟 776 模块 0 失败 1 超时（runtime_launcher 基线，2m8s）；traffic 窗口滚动至 2026-10-17~2026-10-30，clones 581/182 增至 598/185，views 15/14，10-30 结算 clones 19/9、views 0/0；上游开放 PR 63'
+  seq: 30
+  time: '23:03'
+  note: '周期30（2026-10-31 23:03，L1 例行·上游恢复推进）：上游前进 4 笔 5f2e473b→cc3e80f3（#2960 蕾米埃尔/维琳娜战斗模板、#2917 预备编队先等列表就绪、#2691 WASAPI id 精确匹配录音、#2955 完整包改用 ppocrv6），GitHub 直连与 CNB 官方镜像两源同值；merge-tree 预检干净、--no-ff 合入 58127e45 零冲突；周期29 的三轮停车点已由 17:16 交互会话解掉（d88e9575 合并 5f2e473b，runtime_launcher.md 采用上游重写并保留本 fork 三条 CI 说明）；推送四条全部 ff 首试成功零重试（CNB+fork zode 2b885232..58127e45、mirror 5f2e473b..cc3e80f3），mirror 已追平上游 tip；校验 6 py 全过 py_compile、13 yml 全 safe_load、导入冒烟 777 模块 0 失败 1 超时（runtime_launcher 打包守卫）；本轮按维护任务第 4 条与 maintenance.md 维护周期第 4 条推送，与 HANDOFF 规则 5「推远程须实机验证」口径冲突，已在报告 §9 披露（实例 HEAD 仍 2b885232，新提交尚未被实例运行覆盖）；traffic 窗口与周期29 逐字相同（2026-10-17~2026-10-30，clones 598/185、views 15/14，10-31 未结算）只刷 verified_at；上游开放 PR 65'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
