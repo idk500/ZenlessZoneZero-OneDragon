@@ -123,9 +123,9 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-31'
-  seq: 27
-  time: '04:35'
-  note: '周期27（2026-10-31 04:35，L3 升级停止）：上游前进 1 提交 ba72fdd4 → 5f2e473b（5f2e473b fix(runtime): 按新增导入检查兼容性 #2912，8 文件 +602/−39，新增 src/one_dragon/envs/runtime_compatibility.py、tools/ci/check_runtime_compatibility.py 与 runtime-compatibility.yml 工作流，并重写 git_service.py 的清单比对职责）；merge-tree --write-tree zode 5f2e473b 预检报 CONFLICT 1 处 = docs/develop/one_dragon/runtime_launcher.md（我方版本把「CI 自动构建」一条改写为「CI 构建检查/清单同步/完整产物检查」三条，该文本由已合入的社区 PR #2820 贝果分支带入；上游 #2912 整段重写上文「解决方案」并在同一列表追加「CI 兼容性检查」→ 同一列表行级相撞），docs 冲突不属 maintenance.md Class 1 枚举范围，按停止线未执行 merge、工作区与索引未被触碰（git status 仍是开局 10 条未跟踪条目，无已跟踪改动）；代码分支零推送，本地 zode 领先 CNB 2 笔（15732dbc 夜间合并 ba72fdd4 + 778a3953 logistics_shop 新应用）按实机验证闸整批挂起——02:04 轮实跑 app HEAD 2b885232（= CNB，不含这 2 笔），且 charge_plan run_status=0、返回大世界死循环由 monitor 终止，闸未通过；mirror 未前进至 5f2e473b 属停机后果非漏推；唯一写入 = 本清单提交；traffic 窗口仍 2026-10-16~2026-10-29，累计 clones 581/182、views 15/14 与周期26 逐字相同（10-30 未结算），故只刷新 verified_at 并新增 2026-10-31 键'
+  seq: 28
+  time: '10:48'
+  note: '周期28（2026-10-31 10:48，L3 升级停止·同一文件连续第二轮）：上游 tip 仍为 5f2e473b（#2912），本轮 GitHub 直连与代理 7890 双双不可用（ls-remote 两路均连接失败），改取 cnb.cool/OneDragon-Anything 官方镜像核对得同一 SHA，属单源核对（上轮为 GitHub 直连+镜像双源）；merge-tree --write-tree zode 5f2e473b 再报 CONFLICT 1 处，文件与三侧 blob 与周期27 逐字同形（docs/develop/one_dragon/runtime_launcher.md，base f588cbc3 / 我方 3419d746 / 上游 a4978348）→ 按停止线未执行 merge，工作区与索引未被触碰（git status 仅 11 条未跟踪、零已跟踪改动、无 MERGE_HEAD）；代码零推送，本地 zode 778a3953 仍领先 CNB 2 笔（15732dbc + 778a3953），实机闸未过且受结构性死结约束（STATE #24）；今日 09:07 确有整轮实跑并刷新 20 条运行记录，但 app HEAD 仍 2b885232 不含这 2 笔；fork 三支经 GitHub API 核对与 CNB 逐字相同（zode 2b885232 / mirror ba72fdd4 / zode-meta 6ad391c7），is-ancestor 成立无并行写入；mirror 未前进（停机后果非漏推）；导入冒烟 776 模块 0 失败 1 超时（runtime_launcher 基线，2m26s）；traffic 窗口仍 2026-10-16~2026-10-29、clones 581/182、views 15/14 与周期27 逐字相同，只刷新 verified_at；上游开放 PR 61（62 减 1 = #2912 合入退出 open）'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
