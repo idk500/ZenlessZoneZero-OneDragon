@@ -123,9 +123,9 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-10-31'
-  seq: 28
-  time: '10:48'
-  note: '周期28（2026-10-31 10:48，L3 升级停止·同一文件连续第二轮）：上游 tip 仍为 5f2e473b（#2912），本轮 GitHub 直连与代理 7890 双双不可用（ls-remote 两路均连接失败），改取 cnb.cool/OneDragon-Anything 官方镜像核对得同一 SHA，属单源核对（上轮为 GitHub 直连+镜像双源）；merge-tree --write-tree zode 5f2e473b 再报 CONFLICT 1 处，文件与三侧 blob 与周期27 逐字同形（docs/develop/one_dragon/runtime_launcher.md，base f588cbc3 / 我方 3419d746 / 上游 a4978348）→ 按停止线未执行 merge，工作区与索引未被触碰（git status 仅 11 条未跟踪、零已跟踪改动、无 MERGE_HEAD）；代码零推送，本地 zode 778a3953 仍领先 CNB 2 笔（15732dbc + 778a3953），实机闸未过且受结构性死结约束（STATE #24）；今日 09:07 确有整轮实跑并刷新 20 条运行记录，但 app HEAD 仍 2b885232 不含这 2 笔；fork 三支经 GitHub API 核对与 CNB 逐字相同（zode 2b885232 / mirror ba72fdd4 / zode-meta 6ad391c7），is-ancestor 成立无并行写入；mirror 未前进（停机后果非漏推）；导入冒烟 776 模块 0 失败 1 超时（runtime_launcher 基线，2m26s）；traffic 窗口仍 2026-10-16~2026-10-29、clones 581/182、views 15/14 与周期27 逐字相同，只刷新 verified_at；上游开放 PR 61（62 减 1 = #2912 合入退出 open）'
+  seq: 29
+  time: '17:00'
+  note: '周期29（2026-10-31 17:00，L3 升级停止·同一文件连续第三轮）：上游 tip 仍为 5f2e473b（#2912），本轮 GitHub 直连与 CNB 官方镜像两源同值（网络恢复，恢复双源交叉核对）；merge-tree --write-tree zode 5f2e473b 第三次报同一处 CONFLICT，文件与三侧 blob 与周期27/28 逐字同形（docs/develop/one_dragon/runtime_launcher.md，base f588cbc3 / 我方 3419d746 / 上游 a4978348）→ 按停止线未执行 merge，工作区与索引未触碰（git status 仅 11 条未跟踪、零已跟踪改动、无 MERGE_HEAD）；代码零推送，本地 zode 778a3953 领先 CNB 5 个提交（3 上游 + 夜间合并 15732dbc + logistics_shop 778a3953）；实机侧今日确在跑（city_fund 成功，world_patrol/notify/驱动盘拆解 失败，16:49 仍在运行）但 app HEAD 仍 2b885232，对待推提交零覆盖（STATE #24 死结）；fork 三支 ls-remote 与 CNB 逐字相同（zode 2b885232 / mirror ba72fdd4 / zode-meta cf523daf，周期28 未推成功的清单提交已由兜底自动化补上），is-ancestor 成立无并行写入；mirror 未前进（停机后果非漏推）；导入冒烟 776 模块 0 失败 1 超时（runtime_launcher 基线，2m8s）；traffic 窗口滚动至 2026-10-17~2026-10-30，clones 581/182 增至 598/185，views 15/14，10-30 结算 clones 19/9、views 0/0；上游开放 PR 63'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
