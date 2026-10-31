@@ -122,10 +122,10 @@ arbited:
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
-  date: '2026-10-31'
-  seq: 30
-  time: '23:03'
-  note: '周期30（2026-10-31 23:03，L1 例行·上游恢复推进）：上游前进 4 笔 5f2e473b→cc3e80f3（#2960 蕾米埃尔/维琳娜战斗模板、#2917 预备编队先等列表就绪、#2691 WASAPI id 精确匹配录音、#2955 完整包改用 ppocrv6），GitHub 直连与 CNB 官方镜像两源同值；merge-tree 预检干净、--no-ff 合入 58127e45 零冲突；周期29 的三轮停车点已由 17:16 交互会话解掉（d88e9575 合并 5f2e473b，runtime_launcher.md 采用上游重写并保留本 fork 三条 CI 说明）；推送四条全部 ff 首试成功零重试（CNB+fork zode 2b885232..58127e45、mirror 5f2e473b..cc3e80f3），mirror 已追平上游 tip；校验 6 py 全过 py_compile、13 yml 全 safe_load、导入冒烟 777 模块 0 失败 1 超时（runtime_launcher 打包守卫）；本轮按维护任务第 4 条与 maintenance.md 维护周期第 4 条推送，与 HANDOFF 规则 5「推远程须实机验证」口径冲突，已在报告 §9 披露（实例 HEAD 仍 2b885232，新提交尚未被实例运行覆盖）；traffic 窗口与周期29 逐字相同（2026-10-17~2026-10-30，clones 598/185、views 15/14，10-31 未结算）只刷 verified_at；上游开放 PR 65'
+  date: '2026-11-01'
+  seq: 31
+  time: '05:15'
+  note: '周期31（2026-11-01 05:15，L1 例行·上游继续推进）：上游前进 2 笔 cc3e80f3→209a854e（#2968 插件安装后重新扫描应用设置入口 6 文件、#2964 返回大世界左上角按钮改整词 OCR 匹配），GitHub 直连与 CNB 官方镜像两源同值；merge-tree 预检结果树 1ddcafe4 零 CONFLICT，--no-ff 合入 4009c20d；#2964 的修复内容本 fork 已由 39ea8760 先行包含（blob c06442a2 两侧同值），故合并净变更只有 #2968 的 6 文件；推送四条全部 ff 首试成功零重试（CNB+fork zode 58127e45..4009c20d 含本地 2 笔交互会话提交 6a714b20 坐标校准/959bdaac 恶名狩猎死循环修复、mirror cc3e80f3..209a854e），mirror 追平上游 tip；校验 7 py 全过 py_compile、2 yml 全 safe_load、导入冒烟 778 模块 0 失败 1 超时（runtime_launcher 打包守卫，777→778 来自新增 context_app_setting_refresh_event.py）；实机侧 02:04 轮至 05:12 仍卡在恶名狩猎电量不足死循环（悬而未决 #26 原样复现，夜链 v3 判 not green 已 HOLD 推送），本轮按维护任务第 4 条与 maintenance.md 维护周期第 4 条推送，与 HANDOFF 规则 5「推远程须实机验证」冲突已在报告披露；traffic 零变化（窗口 2026-10-17~2026-10-30，clones 598/185、views 15/14，10-31 未结算），跨日新增 2026-11-01 键照抄；上游开放 PR 65'
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
