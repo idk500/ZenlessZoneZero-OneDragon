@@ -123,9 +123,10 @@ arbited:
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
   date: '2026-11-01'
-  seq: 33
-  time: '17:28'
-  note: '周期33（2026-11-01 17:28，L1 例行·上游零推进轮）：上游 tip 未前进仍 209a854e（= cnb/mirror = upstream/main，GitHub 直连 fetch 与 ls-remote 两源同值），rev-list cnb/mirror..upstream/main = 0、zode..upstream/main = 0 → 无需 merge、无冲突；本轮代码与 mirror 零推送：本地 zode ed037f22 = CNB = fork（11-01 14:39 本机交互会话提交的恶名狩猎电量不足根修，已由该会话推 CNB、fork 由每小时兜底同步），mirror 209a854e、zode-meta 64833fce 两端逐字相同，逐支 is-ancestor 成立 → 无并行写入、无 force update。校验：对 ed037f22 触碰的 notorious_hunt_app.py 单独 py_compile 通过，导入冒烟 778 模块 0 失败 1 超时（runtime_launcher 打包守卫，与周期32 逐字相同）。实机只读重大变化：实例 HEAD 已由 2b885232 变为 ed037f22（reflog：11:44:59 reset 到 cnb/zode = 4009c20d、14:39:12 reset 到 ed037f22）→『拉取成功但不更新工作树』不再成立，30 分钟检测只做 fetch，工作树由启动 checkout 应用；ed037f22 已于 14:46 实机生效（节点由『恶名狩猎->判断剩余次数』变为『恶名狩猎->跳过或结束计划』，13:31~14:46 的电量不足空转随即终止、全部领取成功、run_status 1）→ 实机验证成立。今日日志 ERROR 35 / Traceback 14，14 条为 14:00:14~15 游戏窗口未就绪集中爆发（环境因素，非代码回归）。traffic 窗口滚到 2026-10-18~2026-10-31：clones 638/200、views 20/14，10-31 结算 clones 42/19、views 7/2，已按新数据刷新本日快照。'
+  seq: 34
+  time: '23:38'
+  note: '周期34（2026-11-01 23:38，L3 升级停止·merge 冲突）：上游前进 1 笔 209a854e→9e39c720（#2956 fix(runtime): 切换账号不再弹出游戏窗口，1 文件 −1 行，作者 @Usagi-wusaqi），GitHub 直连 fetch 成功；git merge-tree --write-tree zode 9e39c720 报 src/zzz_od/controller/zzz_pc_controller.py 内容冲突（base 9a3da5c2 / 我方 70b99233 / 上游 f2cd6108）→ 按停止线未执行 merge，代码与 mirror 零推送。冲突性质：上游 #2956 删除 self.active_window() 调用，本 fork 由已合入 PR #2502（我方 070f4a4a）在同一位置新增该调用（前台模式强制激活游戏窗口，附注释说明切换实例后台转前台需激活以免键鼠误发），两侧意图都明确 → 属 Class 2 多解，Class 1 枚举不覆盖，需维护者定口径（可裁决项：a 采纳上游删除、b 保留我方并用 force_active_window 开关门控）。远端核对：开局 zode ed037f22 / mirror 209a854e / zode-meta 94880b9f 在本地、CNB、fork 三点逐字相同，逐支 is-ancestor 成立 → 无并行写入、无 force update；fork 本轮 git 直连与代理均不可用，改用 gh api git/ref 核对成功。校验：merge 触碰集为空；导入冒烟 778 模块 0 失败 1 超时（runtime_launcher 打包守卫，与周期33 逐字相同）。实机只读：实例 HEAD 仍 ed037f22，23:02~23:40 一轮运行，notorious_hunt 23:02 run_status 1（left_times 15）、inventory_scan 23:18 run_status 1，全场无『电量不足』空转复现，23:40:47 人工结束；22:30/23:00/23:31 三次 30 分钟检测均『拉取成功』且 HEAD 未变（CNB 已是 ed037f22，无新提交可拉）。唯一远端写入 = 本清单 zode-meta 双端。traffic 窗口未滚动（2026-10-18~2026-10-31，clones 638/200、views 20/14），与周期33 逐字相同 → 只刷本日 verified 时间，不新建键、不改历史日值。'
+
 handover:
   effective: '2026-10-26'
   from: Mac 维护会话
