@@ -943,3 +943,98 @@ snapshots:
       - timestamp: '2026-10-31T00:00:00Z'
         count: 7
         uniques: 2
+  '2026-11-02':
+    verified_at: '2026-11-02T05:46:00+08:00'
+    verified_note: '周期35（2026-11-02 05:46，L3 升级停止轮）实拉复查：窗口仍 2026-10-18~2026-10-31，累计 clones 638/200、views 20/14，逐日序列与周期34 逐字相同（10-31 结算 clones 42/19、views 7/2 未变），11-01 尚未结算 → 跨日新增本键并照抄 11-01 数据，历史日值未动。口径同前：fetch 不计数，clones 总 uniques 不等于日值相加属 GitHub 窗口去重。'
+    clones:
+      count: 638
+      uniques: 200
+      clones:
+      - timestamp: '2026-10-18T00:00:00Z'
+        count: 1
+        uniques: 1
+      - timestamp: '2026-10-19T00:00:00Z'
+        count: 2
+        uniques: 2
+      - timestamp: '2026-10-20T00:00:00Z'
+        count: 44
+        uniques: 19
+      - timestamp: '2026-10-21T00:00:00Z'
+        count: 24
+        uniques: 10
+      - timestamp: '2026-10-22T00:00:00Z'
+        count: 107
+        uniques: 24
+      - timestamp: '2026-10-23T00:00:00Z'
+        count: 45
+        uniques: 18
+      - timestamp: '2026-10-24T00:00:00Z'
+        count: 87
+        uniques: 33
+      - timestamp: '2026-10-25T00:00:00Z'
+        count: 79
+        uniques: 30
+      - timestamp: '2026-10-26T00:00:00Z'
+        count: 19
+        uniques: 12
+      - timestamp: '2026-10-27T00:00:00Z'
+        count: 30
+        uniques: 16
+      - timestamp: '2026-10-28T00:00:00Z'
+        count: 88
+        uniques: 31
+      - timestamp: '2026-10-29T00:00:00Z'
+        count: 51
+        uniques: 25
+      - timestamp: '2026-10-30T00:00:00Z'
+        count: 19
+        uniques: 9
+      - timestamp: '2026-10-31T00:00:00Z'
+        count: 42
+        uniques: 19
+    views:
+      count: 20
+      uniques: 14
+      views:
+      - timestamp: '2026-10-18T00:00:00Z'
+        count: 2
+        uniques: 2
+      - timestamp: '2026-10-19T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-20T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-21T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-22T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-23T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-24T00:00:00Z'
+        count: 6
+        uniques: 6
+      - timestamp: '2026-10-25T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-26T00:00:00Z'
+        count: 2
+        uniques: 2
+      - timestamp: '2026-10-27T00:00:00Z'
+        count: 2
+        uniques: 1
+      - timestamp: '2026-10-28T00:00:00Z'
+        count: 1
+        uniques: 1
+      - timestamp: '2026-10-29T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-30T00:00:00Z'
+        count: 0
+        uniques: 0
+      - timestamp: '2026-10-31T00:00:00Z'
+        count: 7
+        uniques: 2

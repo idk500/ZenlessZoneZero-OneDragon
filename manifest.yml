@@ -122,10 +122,10 @@ arbited:
   status: 等待应答（持续等待政策；2026-10-24 周期 8 复查仍无应答，继续挂起）
   fallback: 有人应答后仍无明确方向时使用：先跟上游方向，其次采纳帖内分析推荐（方案 A 择不冲突部分）
 last_cycle:
-  date: '2026-11-01'
-  seq: 34
-  time: '23:38'
-  note: '周期34（2026-11-01 23:38，L3 升级停止·merge 冲突）：上游前进 1 笔 209a854e→9e39c720（#2956 fix(runtime): 切换账号不再弹出游戏窗口，1 文件 −1 行，作者 @Usagi-wusaqi），GitHub 直连 fetch 成功；git merge-tree --write-tree zode 9e39c720 报 src/zzz_od/controller/zzz_pc_controller.py 内容冲突（base 9a3da5c2 / 我方 70b99233 / 上游 f2cd6108）→ 按停止线未执行 merge，代码与 mirror 零推送。冲突性质：上游 #2956 删除 self.active_window() 调用，本 fork 由已合入 PR #2502（我方 070f4a4a）在同一位置新增该调用（前台模式强制激活游戏窗口，附注释说明切换实例后台转前台需激活以免键鼠误发），两侧意图都明确 → 属 Class 2 多解，Class 1 枚举不覆盖，需维护者定口径（可裁决项：a 采纳上游删除、b 保留我方并用 force_active_window 开关门控）。远端核对：开局 zode ed037f22 / mirror 209a854e / zode-meta 94880b9f 在本地、CNB、fork 三点逐字相同，逐支 is-ancestor 成立 → 无并行写入、无 force update；fork 本轮 git 直连与代理均不可用，改用 gh api git/ref 核对成功。校验：merge 触碰集为空；导入冒烟 778 模块 0 失败 1 超时（runtime_launcher 打包守卫，与周期33 逐字相同）。实机只读：实例 HEAD 仍 ed037f22，23:02~23:40 一轮运行，notorious_hunt 23:02 run_status 1（left_times 15）、inventory_scan 23:18 run_status 1，全场无『电量不足』空转复现，23:40:47 人工结束；22:30/23:00/23:31 三次 30 分钟检测均『拉取成功』且 HEAD 未变（CNB 已是 ed037f22，无新提交可拉）。唯一远端写入 = 本清单 zode-meta 双端。traffic 窗口未滚动（2026-10-18~2026-10-31，clones 638/200、views 20/14），与周期33 逐字相同 → 只刷本日 verified 时间，不新建键、不改历史日值。'
+  date: '2026-11-02'
+  seq: 35
+  time: '05:46'
+  note: '周期35（2026-11-02 05:46，L3 升级停止·同一冲突连续第二轮）：上游前进 1 笔 9e39c720→33cfa5a0（#2976 插件商店订阅前增加第三方插件风险确认，2 文件 +31/−1，作者 @ShadowLemoon，GitHub 直连 fetch 成功）；git merge-tree --write-tree zode 33cfa5a0 再次报 src/zzz_od/controller/zzz_pc_controller.py 内容冲突，三侧 blob 与周期34 逐字同形（base 9a3da5c2 / 我方 70b99233 / 上游 f2cd6108）→ 按停止线未执行 merge，代码与 mirror 零推送（mirror 仍 209a854e，落后上游 2 笔）。冲突新增证据：上游 #2956 已于 2026-11-01T13:25:34Z 合并，我方镜像来源 PR #2502 仍 open 且与 #2956 同作者 @Usagi-wusaqi = 作者本人反向修订自己的增强；Class 1 枚举不覆盖，仍需维护者定口径（a 采纳上游删除 / b 用 force_active_window 门控 / c 其它）。远端核对：zode 3dd17613（本地/CNB/fork 逐字相同）、mirror 209a854e（CNB/fork）、zode-meta 2abec987（本地/CNB/fork），逐支 is-ancestor 成立 → 无并行写入、无 force update；本地 HEAD 由周期34 的 ed037f22 前进 2 笔（27d300ee 移除内置贝果计划、3dd17613 直跑模式等待异步初始化），均为本机 01:01~01:11 交互会话提交并已推双端。校验：merge 触碰集为空；3dd17613 的 application_launcher.py py_compile 通过；导入冒烟 729 模块 0 失败 1 超时（runtime_launcher 打包守卫，778→729 来自移除内置贝果 49 个模块，非回归）。实机只读：实例 HEAD 已追平 3dd17613（reflog 01:01:28 / 01:11:23 两次 reset），02:04 轮全链跑通（打开游戏→进入游戏→恶名狩猎全部领取→全部结束，一条龙执行成功），更新器 02:04:43 判「本地代码已是最新: 3dd1761」；今日日志 [ERROR] 30 / Traceback 6，集中在 01:17~01:21 打开游戏失败与窗口前台焦点 5 连败（#27 环境因素，非代码回归）；内置贝果移除后「重复的 APP_ID bagel」告警零出现（周期34 观察项结案），00:32 旧代码的 TypeError unhashable dict 随移除消失。唯一远端写入 = 本清单 zode-meta 双端。traffic 窗口未滚动（2026-10-18~2026-10-31，clones 638/200、views 20/14），跨日新增 2026-11-02 键照抄，历史日值未动。'
 
 handover:
   effective: '2026-10-26'
